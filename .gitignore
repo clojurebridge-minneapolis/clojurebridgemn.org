@@ -1,11 +1,22 @@
-pom.xml
-pom.xml.asc
+# .gitignore
+
+# Java build artifacts
+/lib
+/pom.xml*
 *jar
-/lib/
-/classes/
-/target/
-/checkouts/
-.lein-deps-sum
-.lein-repl-history
-.lein-plugins/
-.lein-failures
+*.class
+
+# Clojure build artifacts
+/classes
+/target
+/checkouts
+/.lein-*
+
+# Editor artifacts
+.nrepl-port
+*~
+
+## Other
+# silly Mac filesystem
+*.DS_Store*
+*._*
