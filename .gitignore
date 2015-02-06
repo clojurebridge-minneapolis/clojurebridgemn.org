@@ -1,5 +1,8 @@
 # .gitignore
 
+# projectspecific
+*.orig
+
 # Java build artifacts
 /lib
 /pom.xml*

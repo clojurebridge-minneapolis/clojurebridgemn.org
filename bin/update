@@ -22,7 +22,7 @@ else
 fi
 
 # abandon any local changes
-# git checkout -- index.html
+git checkout -- index.html
 if [ -e index.html.orig ]; then
     mv index.html.orig index.html
 fi
