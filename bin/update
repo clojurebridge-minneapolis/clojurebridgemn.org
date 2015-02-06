@@ -1,0 +1,37 @@
+#!/bin/sh
+# update [user [timestamp]]
+# this shell script is run after this repo has been pushed
+
+program=$(basename "$0")
+dir="$(dirname $0)"
+cd "$dir"
+dir="$(pwd -P)"
+cd ..
+repodir="$(pwd -P)"
+
+if [ -n "$1" ]; then
+    user="$1"
+else
+    user=$USERNAME
+fi
+
+if [ -n "$2" ]; then
+    timestamp="$2"
+else
+    timestamp=now
+fi
+
+# abandon any local changes
+# git checkout -- index.html
+if [ -e index.html.orig ]; then
+    mv index.html.orig index.html
+fi
+
+# get the latest repo
+git pull
+
+# substitute vars
+mv index.html index.html.orig
+sed -e s/@user@/$user/g \
+    -e s/@timestamp@/$timestamp/g \
+    index.html.orig > index.html
