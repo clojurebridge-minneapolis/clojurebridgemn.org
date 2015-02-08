@@ -2,6 +2,7 @@
 
 # projectspecific
 *.orig
+lastcommit.js
 
 # Java build artifacts
 /lib
