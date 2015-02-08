@@ -9,9 +9,6 @@ dir="$(pwd -P)"
 cd ..
 repodir="$(pwd -P)"
 
-# disable updating for now
-exit 0
-
 if [ -n "$1" ]; then
     user="$1"
 else
@@ -24,9 +21,10 @@ else
     timestamp=now
 fi
 
+# OLD ============================
 # abandon any local changes
-rm -f index.html
-git checkout -- index.html
+# rm -f index.html
+# git checkout -- index.html
 # if [ -e index.html.orig ]; then
 #     mv index.html.orig index.html
 # fi
@@ -34,8 +32,9 @@ git checkout -- index.html
 # get the latest repo
 git pull
 
+# OLD ==============================
 # substitute vars
-mv index.html index.html.orig
-sed -e s/@user@/$user/g \
-    -e s/@timestamp@/$timestamp/g \
-    index.html.orig > index.html
+# mv index.html index.html.orig
+# sed -e s/@user@/$user/g \
+#     -e s/@timestamp@/$timestamp/g \
+#     index.html.orig > index.html
