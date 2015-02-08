@@ -38,3 +38,5 @@ git pull
 # sed -e s/@user@/$user/g \
 #     -e s/@timestamp@/$timestamp/g \
 #     index.html.orig > index.html
+
+echo "CBMN.lastcommit(\"$user\", \"$timestamp\");" > $repodir/resources/public/js/lastcommit.js
