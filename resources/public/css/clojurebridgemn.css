@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* Default resetting */
-html, form, fieldset, legend, dt, dd
+html, fieldset, legend, dt, dd
 {
     margin: 0;
     padding: 0;
@@ -29,15 +29,27 @@ body
     overflow: hidden;
 }
 
+form
+{
+    width: 148px;
+    height: 48px;
+    background: transparent;
+}
+
+input
+{
+    background: transparent;
+}
+
 body, input
 {
     font-family: Helvetica, Verdana, Arial, sans-serif;
 }
 
-input
-{
-    padding: 0.1em 0.5em 0.1em 0.5em;
-}
+/* input */
+/* { */
+/*     padding: 0.1em 0.5em 0.1em 0.5em; */
+/* } */
 
 button {
     font-size: 0.90em;
@@ -75,7 +87,6 @@ img
 {
     border: none;
     vertical-align: top;
-    max-width: 30px;
 }
 
 .imgwidth
@@ -101,6 +112,7 @@ li
 #updated {
     color: grey;
     font-size: 0.5em;
+    text-shadow: 0 0 0.1em rgba(0,0,0,0.2);
 }
 
 a
@@ -120,7 +132,7 @@ td {
 }
 
 .expand {
-    width: 50%;
+    width: 30%;
     /* height: 10%; */
 }
 
@@ -135,6 +147,11 @@ td {
 
 .center-middle {
     text-align: center;
+    vertical-align: middle;
+}
+
+.right-middle {
+    text-align: right;
     vertical-align: middle;
 }
 
@@ -179,19 +196,19 @@ footer {
 }
 
 @media all and (min-width: 470px) {
-    img { max-width: 60px; }
+    /* img { max-width: 60px; } */
     .imgwidth { width: 60px; }
     body { font-size: 1.1em; }
 }
 
 @media all and (min-width: 790px) {
-    img { max-width: 150px; }
+    /* img { max-width: 150px; } */
     .imgwidth { width: 150px; }
     body { font-size: 1.33em; }
 }
 
 @media all and (min-width: 1500px) {
-    img { max-width: 300px; }
+    /* img { max-width: 300px; } */
     .imgwidth { width: 300px; }
     body { font-size: 2.0em; }
 }
