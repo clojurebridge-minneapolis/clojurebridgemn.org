@@ -15,9 +15,9 @@
       }
     },
     welcome: function () {
-      CBMN.log("welcome! website last updated by " + CBMN.committer + " at " + CBMN.timestamp);
+      CBMN.log("welcome! website last updated by " + CBMN.committer + " on " + CBMN.timestamp);
       var updated = document.getElementById('updated');
-      updated.innerHTML = "Last updated by " + CBMN.committer + " at " + CBMN.timestamp;
+      updated.innerHTML = "Last updated by " + CBMN.committer + " on " + CBMN.timestamp;
     },
     lastcommit: function (committer, timestamp) {
       CBMN.committer = committer;

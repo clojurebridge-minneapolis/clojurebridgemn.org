@@ -54,7 +54,7 @@ def webhook(logname):
         timestamp = 'now'
     if payload['repository']['name'] == 'clojurebridgemn.org':
         # os.system('cd /srv/clojurebridgemn.org && git pull')
-        os.system('/srv/clojurebridgemn.org/bin/update %s %s' % (name, timestamp))
+        os.system('/srv/clojurebridgemn.org/bin/update \'%s\' \'%s\'' % (name, timestamp))
 
 def usage():
     """
