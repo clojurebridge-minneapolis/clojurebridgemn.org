@@ -48,7 +48,7 @@ def webhook(logname):
         lastcommit = None
     if lastcommit and 'timestamp' in lastcommit:
         timestamp = lastcommit['timestamp']
-        timestamp = timestamp.get(timestamp)
+        timestamp = arrow.get(timestamp)
         timestamp = timestamp.format("dddd MMM D YYYY @ HH:mm:ss")
     else:
         timestamp = 'now'
