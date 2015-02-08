@@ -9,6 +9,9 @@ dir="$(pwd -P)"
 cd ..
 repodir="$(pwd -P)"
 
+# disable updating for now
+exit 0
+
 if [ -n "$1" ]; then
     user="$1"
 else
