@@ -2,7 +2,7 @@
 
 Source for the clojurebridgemn.org website
 
-# Deploying
+## Deploying
 
 Upon ```git push``` the changes will be pulled by the hosting VPS
 and your changes will be live on http://clojurebridgemn.org
@@ -12,6 +12,10 @@ is executed. It is extremely important that care be taken to
 not comprise any subsequent pulls (by making side effects to
 files under git control).
 
+## future
+
+In the future we may update this site to use Om (ClojureScript).
+Certain changes will be necessary on the VPS to accomodate this change.
 
 ## Copyright and license
 
