@@ -25,7 +25,8 @@ body
     background-attachment: fixed;
     font-size: 0.67em;
     font-weight: 600;
-    text-shadow: 0 0 0.5em rgba(0,0,0,0.8);
+    /* text-shadow: 0 0 0.5em rgba(0,0,0,0.7); */
+    text-shadow: 0.04em 0.04em 0.02em black, 0 0.04em 0.02em black, -0.04em 0.04em 0.02em black, 0.04em 0 0.02em black, -0.04em 0 0.02em black, 0.04em -0.04em 0.02em black, 0 -0.04em 0.02em black, -0.04em -0.04em 0.02em black;
     overflow: hidden;
 }
 
@@ -122,7 +123,7 @@ a
 
 a:hover
 {
-    color: lightblue;
+    color: cornflowerblue;
 }
 
 td {
