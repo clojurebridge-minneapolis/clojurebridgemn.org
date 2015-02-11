@@ -12,6 +12,13 @@ is executed. It is extremely important that care be taken to
 not comprise any subsequent pulls (by making side effects to
 files under git control).
 
+## currently just a static site
+
+This site is running as a static apache2 site with a
+DOCROOT of ```resources/public```.
+
+That subdirectory has been chosen to facilitate ClojureScript.
+
 ## future
 
 In the future we may update this site to use Om (ClojureScript).
