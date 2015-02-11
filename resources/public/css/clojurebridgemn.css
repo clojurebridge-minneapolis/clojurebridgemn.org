@@ -185,6 +185,7 @@ header {
     left: 0px;
     width: 100%;
     text-align: center;
+    z-index: 20;
 }
 
 footer {
@@ -193,6 +194,26 @@ footer {
     left: 0px;
     width: 100%;
     text-align: center;
+    z-index: 10;
+}
+
+.donate-1
+{
+    height: 50%;
+    /* border: 2px solid blue; */
+    background: url(../images/donate-1.png) 50% 0% no-repeat;
+}
+
+.donate-2
+{
+    height: 50%;
+    background: url(../images/donate-2.png) 50% 0% no-repeat;
+}
+
+.donate-3
+{
+    height: 50%;
+    background: url(../images/donate-3.png) 50% 0% no-repeat;
 }
 
 @media all and (min-width: 470px) {
