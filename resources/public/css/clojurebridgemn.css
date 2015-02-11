@@ -210,6 +210,39 @@ footer {
     width: 100%;
 }
 
+.donate-1
+{
+    height: 100%;
+    width: 100%;
+    background-image: url(../images/donate-1.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 0%;
+    /* background-clip: border-box; */
+    /* background-origin: border-box; */
+    /* background-attachment: fixed; */
+}
+
+.donate-2
+{
+    height: 100%;
+    width: 100%;
+    background-image: url(../images/donate-2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 0%;
+}
+
+.donate-3
+{
+    height: 100%;
+    width: 100%;
+    background-image: url(../images/donate-3.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 0%;
+}
+
 @media all and (min-width: 470px) {
     /* img { max-width: 60px; } */
     .imgwidth { width: 60px; }
