@@ -30,7 +30,9 @@ fi
 # fi
 
 # get the latest repo
-git pull
+# do NOT pollute the outputstream
+git pull > /dev/null 2>&1
+
 
 # OLD ==============================
 # substitute vars
