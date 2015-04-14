@@ -11,6 +11,7 @@ import arrow
 
 def webhook(logname):
     # respond to caller
+    # NOTE: this assumes that NOTHING else will go wrong later in this script
     print('Content-type: text/plain\n\nOK')
     # now process input
     log = open(logname, 'a')
