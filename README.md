@@ -26,6 +26,6 @@ Certain changes will be necessary on the VPS to accomodate this change.
 
 ## Copyright and license
 
-Copyright © 2014 Tom Marble
+Copyright © 2015 Tom Marble
 
 Licensed under the [MIT](http://opensource.org/licenses/MIT) [LICENSE](LICENSE)

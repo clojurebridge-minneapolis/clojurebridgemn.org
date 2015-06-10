@@ -3,6 +3,7 @@
 # projectspecific
 *.orig
 lastcommit.js
+*.log
 
 # Java build artifacts
 /lib
