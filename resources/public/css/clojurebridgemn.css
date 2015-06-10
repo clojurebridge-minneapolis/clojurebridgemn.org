@@ -1,0 +1,440 @@
+@charset "utf-8";
+
+/* ClojureBridgeMN.org style
+   Copyright © 2015 Tom Marble
+   Licensed under the MIT license
+   https://github.com/clojurebridge-minneapolis/clojurebridgemn.org
+*/
+
+/* Default resetting */
+html, body, fieldset, legend, dt, dd {
+    margin: 0px;
+    padding: 0px;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    font-size: 14px; /* 16 */
+    font-weight: 600;
+    font-family: Helvetica, Verdana, Arial, sans-serif;
+    background: url(../images/stone-arch-dim.jpg) center / 100% auto scroll repeat-y;
+    color: white;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    text-shadow: 0.12em 0.12em 0.06em black, 0 0.12em 0.06em black, -0.12em 0.12em 0.06em black, 0.12em 0 0.06em black, -0.12em 0 0.06em black, 0.12em -0.12em 0.06em black, 0 -0.12em 0.06em black, -0.12em -0.12em 0.06em black;
+}
+
+#figwheel-heads-up-content-area {
+    text-shadow: none;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, dl {
+    margin: 0.1em 0em 0em 1em;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.0em;
+}
+
+a {
+    color: skyblue;
+}
+
+a:hover
+{
+    color: cornflowerblue;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+}
+
+button {
+    -webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+    -moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+    box-sizing: border-box;
+    padding: 0em;
+    height: 1.5em;
+    border: 2px solid white;
+    color: white;
+    border-radius: 0.33em;
+    background: rgba(0,0,0,0.3);
+    margin-left: 1em;
+}
+
+button:hover {
+  outline: none;
+  background: rgba(0,0,0,0.7);
+}
+
+input[type=checkbox] {
+    height: 1.0em;
+    width: 1.0em;
+    margin-left: 1em;
+}
+
+input[type=radio] {
+    height: 0.7em;
+    width: 0.7em;
+    margin-left: 1em;
+}
+
+.small {
+    font-size: 0.67em;
+}
+
+.medium {
+    font-size: 1.0em;
+}
+
+.large {
+    font-size: 1.5em;
+}
+
+.paypal {
+    margin: 1em;
+    width: 10em;
+}
+
+img {
+    border: none;
+}
+
+.imgwidth
+{
+    width: 75px;
+}
+
+#sponsors img {
+    margin: 0.2em 1em 0em 0em;
+    padding: 0.0em;
+    height: 3em;
+    width: auto;
+    background: white;
+}
+
+#home img {
+    margin-top: 0.5em;
+    height: 4em;
+}
+
+#logos img {
+    padding: 0.2em;
+}
+
+.hspace {
+    height: 1px;
+    width: 5em;
+}
+
+.left {
+    position: absolute;
+    left: 6em;
+}
+
+.right {
+    position: absolute;
+    right: 6em;
+}
+
+.go {
+    /* font-size: 1.67em; */
+    width: 0px;
+    height: 0px;
+    opacity: 0.25;
+    position: absolute;
+    top: 45%;
+    top: calc(50% - 2em); /*for smarter browsers */
+    margin: 0.5em;
+}
+
+.go:hover {
+    opacity: 0.5;
+}
+
+#goleft {
+    left: 0px;
+    border-top: 2em solid transparent;
+    border-bottom: 2em solid transparent;
+    border-right: 2em solid white;
+}
+
+#goright {
+    right: 0px;
+    border-top: 2em solid transparent;
+    border-bottom: 2em solid transparent;
+    border-left: 2em solid white;
+}
+
+#sponsors li {
+    /* padding: 0em; */
+    margin: 0.5em;
+}
+
+#app, #root {
+    width: 100%;
+    height: 100%;
+}
+
+#root {
+    z-index: -2;
+}
+
+.subdued {
+    background: rgba(0,0,0,0.67);
+}
+
+.header {
+    height: 4em;
+    background-size: auto 100%;
+    background: url(../images/clojurebridgemn-logo-1024.png) no-repeat center;
+    /* non old webkit browsers will, instead, parse this */
+    background: url(../images/clojurebridgemn-logo-1024.png) center 0.2em / auto 4em fixed no-repeat;
+}
+
+#menu-ctrl {
+    height: 3em;
+    width: 4em;
+    background-image: url(../images/menu.png);
+    background-size: auto 10%;
+    background-attachment: fixed;
+    /* non old webkit browsers will, instead, parse this */
+    background: url(../images/menu.png) center / 3em no-repeat;
+    padding-top: 0.5em;
+    float: left;
+}
+
+#menu-ctrl:hover {
+    opacity: 1.0;
+}
+
+#menu-icon {
+    height: 3em;
+    width: 4em;
+    padding-top: 1em;
+    text-align: center;
+    float: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.item {
+    font-size: 1.67em;
+    width: 4.5em;
+    height: 4.5em;
+    line-height: 2.0em;
+    white-space: nowrap;
+    border: 0.1em solid white;
+    border-radius: 0.5em;
+    margin: 0.2em;
+    padding: 0em;
+    text-align: center;
+    float: left;
+    background: rgba(255,255,255,0.7);
+    opacity: 0.8;
+}
+
+.item:hover
+{
+    opacity: 1.0;
+}
+
+.clear {
+   clear: both;
+}
+
+.dark {
+    opacity: 0.0;
+}
+
+.subtle {
+    opacity: 0.2;
+}
+
+.dim {
+    opacity: 0.5;
+}
+
+.bright {
+    opacity: 0.9;
+}
+
+#size ul {
+    display: inline;
+}
+
+#size li {
+    list-style-type: none;
+    display: inline;
+}
+
+/* the following is require to make div's clickable in Mobile Safari */
+.clickable {
+    cursor: pointer;
+}
+
+.element {
+    margin: 5px;
+    padding: 5px;
+}
+
+#elements, #calendar {
+    width: 100%;
+    height: 100%;
+}
+
+#calendar div {
+    width: 100%;
+    height: 100%;
+}
+
+#calendar iframe {
+    border: 0;
+    /* frameborder: 0; */
+    /* scrolling: no; */
+    margin: 0.5em;
+    width: 85%;
+    height: 75%;
+}
+
+.quotes {
+    position: absolute;
+    margin: 1em;
+    bottom: 0px;
+    left: 0%;
+    padding: 0.5em 1.0em 0.5em 1.0em;
+    font-size: 1em;
+    z-index: -5;
+    text-shadow: none;
+    color: rgba(255,255,255,0.8);
+    background: rgba(0,0,0,0.5);
+    font-family: Times, Georgia, serif;
+}
+
+.pictures {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    background: url(../images/pictures/clojurebridge-13.jpg) center / cover fixed no-repeat;
+}
+
+/* for iPad */
+.picturesi {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    background: url(../images/pictures/clojurebridge-13.jpg) top / contain fixed repeat;
+}
+
+.pictures0 {
+    background-image: url(../images/pictures/clojurebridge-13.jpg);
+}
+
+.pictures1 {
+    background-image: url(../images/pictures/clojurebridge-1.jpg);
+}
+
+.pictures2 {
+    background-image: url(../images/pictures/clojurebridge-2.jpg);
+}
+
+.pictures3 {
+    background-image: url(../images/pictures/clojurebridge-3.jpg);
+}
+
+.pictures4 {
+    background-image: url(../images/pictures/clojurebridge-4.jpg);
+}
+
+.pictures5 {
+    background-image: url(../images/pictures/clojurebridge-5.jpg);
+}
+
+.pictures6 {
+    background-image: url(../images/pictures/clojurebridge-6.jpg);
+}
+
+.pictures7 {
+    background-image: url(../images/pictures/clojurebridge-7.jpg);
+}
+
+.pictures8 {
+    background-image: url(../images/pictures/clojurebridge-8.jpg);
+}
+
+.pictures9 {
+    background-image: url(../images/pictures/clojurebridge-9.jpg);
+}
+
+.pictures10 {
+    background-image: url(../images/pictures/clojurebridge-10.jpg);
+}
+
+.pictures11 {
+    background-image: url(../images/pictures/clojurebridge-11.jpg);
+}
+
+.pictures12 {
+    background-image: url(../images/pictures/clojurebridge-12.jpg);
+}
+
+/* responsive heuristics */
+
+@media (min-width: 480px) and (max-resolution: 201dpi),
+       (min-width: 750px) and (min-resolution: 200dpi) and (max-resolution: 327dpi),
+       (min-width: 1024px) and (min-resolution: 264dpi) and (max-resolution: 402dpi)
+{
+    html {
+        font-size: 18px; /* 20px; */
+    }
+    .item {
+        border-width: 2px;
+    }
+    .imgwidth {
+        width: 100px;
+    }
+}
+
+@media (min-width: 750px) and (min-resolution: 132dpi) and (max-resolution: 199dpi),
+(min-width: 1024px) and (min-resolution: 200dpi) and (max-resolution: 263dpi)
+{
+    html {
+        font-size: 24px; /* 28px; */
+    }
+    .item {
+        border-width: 3px;
+    }
+    .imgwidth {
+        width: 133px;
+    }
+}
+
+@media (min-width: 750px) and (max-resolution: 131dpi),
+       (min-width: 1024px) and (max-resolution: 199dpi)
+{
+    html {
+        font-size: 32px; /* 40px;*/
+    }
+    .item {
+        border-width: 4px;
+    }
+    .imgwidth {
+        width: 178px;
+    }
+}

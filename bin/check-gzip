@@ -1,0 +1,83 @@
+#!/bin/sh
+# check-gzip
+# check for gzip compression
+
+# set -x
+project="clojurebridgemn"
+port=8080
+LEIN_JVM_OPTS="${LEIN_JVM_OPTS:--server}"
+JVM_OPTS="${JVM_OPTS:-$LEIN_JVM_OPTS}"
+
+program=$(basename $0)
+dir=$(dirname $0)
+cd "$dir/.."
+top=$(pwd -P)
+target="$top/target"
+targetgzip="$target/gzip"
+jar="$target/uberjar/$project.jar"
+
+log() {
+    echo >&2 "$@"
+}
+
+err() {
+  log "${program}: $*"
+}
+
+echo "check for gzip compression"
+if [ ! -e "$jar" ]; then
+    err "cannot find jar: $jar (try lein prod)"
+    exit 1
+fi
+
+mkdir -p "$targetgzip"
+
+running="$(fuser -v $port/tcp 2>&1)"
+
+if [ -n "$running" ]; then
+    err "some service is already running on port $port"
+    log "$running"
+    exit 1
+fi
+
+echo "starting production server"
+java $JVM_OPTS -jar $jar $port > "$targetgzip/server.log" &
+pid=$!
+
+# wait for server to start...
+while [ -z "$running" ]; do
+    sleep 1
+    running="$(fuser -v $port/tcp 2>&1)"
+done
+
+echo "downloading app.js"
+wget --quiet -4 -O "$targetgzip/app.js.gz" --server-response --header 'Accept-Encoding: gzip, deflate' http://localhost:$port/js/compiled/app.js > "$targetgzip/wget.log" 2> "$targetgzip/header.log"
+
+echo "results..."
+if grep "Content-Encoding: gzip" "$targetgzip/header.log" > /dev/null; then
+    log "  server used gzip encoding"
+else
+    log "  server did NOT use gzip encoding"
+fi
+
+after=$(ls --block-size=1 -s "$targetgzip/app.js.gz" | cut -d\  -f1)
+before=$after
+if file "$targetgzip/app.js.gz" | grep 'gzip compressed data' > /dev/null; then
+    log "  file is gzip data"
+    gzip -d -c "$targetgzip/app.js.gz" > "$targetgzip/app.js"
+    before=$(ls --block-size=1 -s "$targetgzip/app.js" | cut -d\  -f1)
+else
+    log "  file is NOT gzip data"
+fi
+
+log "  uncompressed app.js $before bytes"
+log "  compressed   app.js  $after bytes"
+percent=$(dc -e "2 k $before $after - $before / 100 * p")
+log "  a  ${percent}% reduction"
+# size of jquery: wget http://code.jquery.com/jquery-2.1.4.min.js
+jquery=84345
+vsjquery=$(dc -e "2 k $after $jquery / 100 * p")
+log "  or ${vsjquery}% of production jQuery ($jquery)"
+
+echo "stopping production server"
+kill $pid
