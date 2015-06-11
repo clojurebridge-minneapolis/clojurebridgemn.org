@@ -29,7 +29,7 @@ An attempt as been made to adjust to a variety of browser
 quirks:
 * Fullscreen mode for browser's that [support it](is supported in those browsers)
 * Swipe gestures are supported for touch screens
-* Mobile Safari (*aka* [the new IE6])(http://arstechnica.com/gadgets/2014/08/with-mobile-safari-as-the-new-ie6-microsoft-modifies-windows-phone/) has adaptations for
+* Mobile Safari (*aka* [the new IE6](http://arstechnica.com/gadgets/2014/08/with-mobile-safari-as-the-new-ie6-microsoft-modifies-windows-phone/)) has adaptations for
   * [clickable](http://www.quirksmode.org/blog/archives/2010/09/click_event_del.html) div elements (see also [Why your click events don't work on Mobile Safari](http://www.shdon.com/blog/2013/06/07/why-your-click-events-don-t-work-on-mobile-safari) and [Click event delegation on the iPhone](http://www.quirksmode.org/blog/archives/2010/09/click_event_del.html))
   * avoiding the dreaded [300ms delay](http://cubiq.org/remove-onclick-delay-on-webkit-for-iphone)
   * fixing the [viewport](http://garybacon.com/post/viewport-bug-in-mobile-safari-on-iphone-and-ipad/)
