@@ -473,8 +473,10 @@
     [:div.small.center "Free, beginner-friendly Clojure programming workshops for women"
      [:br]
      [:br]
-     [:i [:a {:href "http://www.eventbrite.com/e/clojurebridge-mn-summer-2015-tickets-16555182998?aff=erelexporg"} "Sign up now"]]
-     " for our summer workshop June 26/27!"]}
+     ;; [:i [:a {:href "http://www.eventbrite.com/e/clojurebridge-mn-summer-2015-tickets-16555182998?aff=erelexporg"} "Sign up now"]]
+     ;; " for our summer workshop June 26/27!"]
+    "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/18-19 !"
+     ]}
    :logos
    {:debug
     [:div
@@ -604,10 +606,16 @@
    {:debug
     [:div "ClojureBridge has been made possible locally through the generous support of our sponsors and individual donors"
      [:ul
-      [:li "June 26/27 2015: BridgeFoundry"
+      [:li "June 26/27 2015: BridgeFoundry, Clockwork, O'Reilly"
        [:br]
        [:img {:alt "Bridge Foundry"
               :src "images/clojurebridge.png"
+              }]
+       [:img {:alt "Clockwork"
+              :src "images/sponsors/cw_logo.png"
+              }]
+       [:img {:alt "O'Reilly"
+              :src "images/sponsors/ORM.jpg"
               }]
        ]
       [:li "March 6/7 2015: UMSEC, Trivent, Adobe, O'Reilly"
@@ -677,12 +685,17 @@
    {:debug
     [:div
      [:br]
-     "ClojureBridgeMN prep for June 26/27"
-     [:br]
-     [:br]
-     "The ClojureBridgeMN organizers and volunteers are busy preparing for our next workshop at "
+     "We want to thank all the students and volunteers that made our ClojureBridgeMN workshop at "
      [:a {:href "http://clockwork.net"} "Clockwork Active Media Systems"]
-     " at the end of the month. Check back here for the latest news!"
+     " on June 26/27 a success!"
+     [:br]
+     [:br]
+     "Want to continue working on Clojure projects? Join us for our next 'hack time' at "
+     [:a {:href "http://www.quixoticcoffee.com/"} "Quixotic Coffee"]
+     " on Sunday 6/19 from 10am to noon (Everyone is welcome!)"
+     [:br]
+     [:br]
+     "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/18-19"
      ]
     }
    :calendar
@@ -705,9 +718,9 @@
      [:br]
      [:ul
       [:li "Global " [:a {:href "http://clojurebridge.org"} "ClojureBridge"] " organization"]
-      [:li "Local " [:a {:href "http://clojure.mn"} "clojure.mn"] " user group (meets every 2nd Wednesday"]
+      [:li "Local " [:a {:href "http://clojure.mn"} "clojure.mn"] " user group (meets every 2nd Wednesday)"]
       [:li "ClojureBridge "
-       [:a {:href "https://github.com/ClojureBridge/curriculum/blob/gh-pages/outline/setup.md"} "installfest"] " and "
+       [:a {:href "http://bit.ly/cb-mn"} "installfest"] " and "
        [:a {:href "https://github.com/ClojureBridge/getting-started/blob/master/nightcode.md"} "Nightcode"]
        " guides"]
       [:li "Our " [:a {:href "https://github.com/clojurebridge-minneapolis/track1-chatter"} "Track 1"] " guide"]

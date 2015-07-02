@@ -4,6 +4,7 @@
 *.orig
 lastcommit.js
 *.log
+/resources/public/js/compiled/[a-z]*
 
 # Java build artifacts
 /lib

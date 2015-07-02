@@ -1,10 +1,10 @@
-(defproject clojurebridgemn "0.2.0"
+(defproject clojurebridgemn "0.2.1"
   :description "ClojureScriptMN.org website"
   :url "https://github.com/clojurebridge-minneapolis/clojurebridgemn.org"
   :license {:name "MIT"
             :url "http://opensource.org/licenses/MIT"}
 
-  :dependencies [[org.clojure/clojure "1.7.0-RC1"]
+  :dependencies [[org.clojure/clojure "1.7.0-RC2"]
                  [org.clojure/clojurescript "0.0-3308"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [aleph "0.4.0"]
