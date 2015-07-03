@@ -23,7 +23,7 @@
                  [secretary "1.2.3"]
                  [cljs-http "0.1.35"]]
 
-  :plugins [[lein-cljsbuild "1.0.5"]
+  :plugins [[lein-cljsbuild "1.0.6"]
             [lein-figwheel "0.3.1"
              :exclusions [org.clojure/clojure]]
             [lein-environ "1.0.0"]]
