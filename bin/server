@@ -10,8 +10,7 @@ dir="$(pwd -P)"
 cd ..
 # run from the top directory
 top="$(pwd -P)"
-# logs="$top/logs"
-logs="logs"
+logs="$top/logs"
 
 if [ ! -d "$logs" ]; then
     mkdir "$logs"
