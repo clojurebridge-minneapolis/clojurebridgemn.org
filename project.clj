@@ -1,4 +1,4 @@
-(defproject clojurebridgemn "0.2.2"
+(defproject clojurebridgemn "0.2.3"
   :description "ClojureScriptMN.org website"
   :url "https://github.com/clojurebridge-minneapolis/clojurebridgemn.org"
   :license {:name "MIT"
