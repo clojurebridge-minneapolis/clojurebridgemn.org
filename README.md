@@ -58,6 +58,28 @@ That means that the current site -- including all the ClojureScript
 and JavaScript libaries -- is only 50% bigger than minified
 jQuery *by itself*.
 
+# auto deployment
+
+The `bin/update` script can be called with the last committer
+and last commit timestamp by the `bit/github-push.py` script which,
+itself, can be called by a git post-update hook.
+
+The `bin/server` script can be called with the usual **start**,
+**stop**, or **restart** commands.
+
+If there is a `bin/logrotate.conf` configuration file then
+**logrotate** will be called before starting the server.
+
+The following variables will be used in `bin/server.env` if this
+file is present:
+* **SERVER_ADMIN** the e-mail address of the server adminstrator
+* **SERVER_PROJECT** the name of the project (e.g. "clojurebridgemn")
+* **SERVER_JAR** the relative path to the uberjar (e.g. "target/uberjar/clojurebridgemn.jar")
+* **SERVER_PORT** the port to run the server on (by default 8080)
+* **JSTAT_INTERVAL** the interval to run [jstat](http://docs.oracle.com/javase/8/docs/technotes/tools/unix/jstat.html#BEHBBBDJ) (optional).
+* **JVM_OPTS** the JVM tuning options
+* **SERVER_COMMITTER** the last committer to the repository
+* **SERVER_TIMESTAMP** the timestamp of the last commit
 
 ## Plans
 
