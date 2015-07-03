@@ -110,7 +110,8 @@ do_start() {
         args="-jar $SERVER_JAR"
         args="$args $SERVER_PORT"
         vecho java $JVM_OPTS $args '>' $logfile
-        java $JVM_OPTS $args > $logfile 2>&1 &
+        echo java $JVM_OPTS $args > $logfile
+        java $JVM_OPTS $args >> $logfile 2>&1 &
         pid=$!
         echo $pid > $pidfile
         vecho "started $SERVER_PROJECT as $pid"
