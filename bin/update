@@ -2,43 +2,79 @@
 # update [user [timestamp]]
 # this shell script is run after this repo has been pushed
 
+set -e
+
 program=$(basename "$0")
 dir="$(dirname $0)"
 cd "$dir"
 dir="$(pwd -P)"
 cd ..
-repodir="$(pwd -P)"
+top="$(pwd -P)"
+logs="logs"
+
+if [ ! -d "$logs" ]; then
+    mkdir "$logs"
+fi
+
+envfile="$dir/server.env"
+if [ -e "$envfile" ]; then
+    . $envfile
+fi
+SERVER_PROJECT=${SERVER_PROJECT:-"server"}
+logfile="$logs/$program.log"
+if [ -e "$logfile" ]; then
+    mv "$logfile" "$logfile.1"
+    sleep 1
+fi
+exec > $logfile 2>&1
+
+rc=1 # assume failure
+trap 'summarize' 0 INT QUIT
+summarize() {
+    if [ $rc -eq 1 ]; then
+        echo "FAILED"
+        if [ -n "$SERVER_ADMIN" ]; then
+            echo "notifying administrator: $SERVER_ADMIN"
+            mailx -s "Failure to update $SERVER_PROJECT" $SERVER_ADMIN < $logfile
+        fi
+    else
+        echo "SUCCESS"
+    fi
+}
 
 if [ -n "$1" ]; then
     user="$1"
 else
-    user=$USERNAME
+    user="$USERNAME"
 fi
 
 if [ -n "$2" ]; then
     timestamp="$2"
 else
-    timestamp=now
+    timestamp="now"
 fi
 
-# OLD ============================
-# abandon any local changes
-# rm -f index.html
-# git checkout -- index.html
-# if [ -e index.html.orig ]; then
-#     mv index.html.orig index.html
-# fi
+# update server.env
+echo "-- update commit user $user timestamp $timestamp --"
+if [ -e bin/server.env ]; then
+    egrep -v '(SERVER_COMMITTER|SERVER_TIMESTAMP)' bin/server.env > bin/server.env.1
+else
+    touch bin/server.env.1
+fi
+mv bin/server.env.1 bin/server.env
+echo "export SERVER_COMMITTER=\"$user\"" >> bin/server.env
+echo "export SERVER_TIMESTAMP=\"$timestamp\"" >> bin/server.env
 
 # get the latest repo
 # do NOT pollute the outputstream
-git pull > /dev/null 2>&1
+echo "-- git pull --"
+git pull # > /dev/null 2>&1
 
+# build the uberjar
+echo "-- build uberjar --"
+lein prod # > /dev/null 2>&1
 
-# OLD ==============================
-# substitute vars
-# mv index.html index.html.orig
-# sed -e s/@user@/$user/g \
-#     -e s/@timestamp@/$timestamp/g \
-#     index.html.orig > index.html
+# restart the server
+$dir/server -v restart # > /dev/null 2>&1
 
-echo "CBMN.lastcommit(\"$user\", \"$timestamp\");" > $repodir/resources/public/js/lastcommit.js
+rc=0

@@ -1,4 +1,4 @@
-(defproject clojurebridgemn "0.2.1"
+(defproject clojurebridgemn "0.2.2"
   :description "ClojureScriptMN.org website"
   :url "https://github.com/clojurebridge-minneapolis/clojurebridgemn.org"
   :license {:name "MIT"
@@ -15,10 +15,13 @@
                  [commons-codec "1.10"]
                  [compojure "1.3.4" :exclusions [commons-codec]]
                  [enlive "1.1.5"]
+                 [cheshire "5.4.0"]
+                 [environ "1.0.0"]
+                 ;; cljs
                  [org.omcljs/om "0.8.8"]
                  [sablono "0.3.4"]
                  [secretary "1.2.3"]
-                 [environ "1.0.0"]]
+                 [cljs-http "0.1.35"]]
 
   :plugins [[lein-cljsbuild "1.0.5"]
             [lein-figwheel "0.3.1"
@@ -28,7 +31,8 @@
   :hooks [leiningen.cljsbuild]
 
   :figwheel {:css-dirs ["resources/public/css"]
-             :open-file-command "myfile-opener"}
+             :open-file-command "myfile-opener"
+             :ring-handler clojurebridgemn.server/info-handler}
 
   :source-paths ["src/main/clj"]
   :target-path "target/%s" ;; avoid AOT problems

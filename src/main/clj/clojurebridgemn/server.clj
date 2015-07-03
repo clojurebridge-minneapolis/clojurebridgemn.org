@@ -10,6 +10,7 @@
             [compojure.route :refer [resources]]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
             [ring.middleware.gzip :refer [wrap-gzip]]
+            [cheshire.core :refer [generate-string]]
             [environ.core :refer [env]]
             [aleph.http :refer [start-server]]
             [clojurebridgemn.mode :refer :all]
@@ -18,13 +19,30 @@
 ;; The server is the http server which will serve the application
 (defonce server (atom nil))
 
+(defn commit-info [req]
+  (let [user (or (:server-committer env) "anonymous")
+        timestamp (or (:server-timestamp env) "now")
+        info {:user user :timestamp timestamp}
+        json (generate-string info)]
+    {:headers {"Content-Type" "application/json; charset=utf-8"}
+     :body json}))
+
 (defroutes routes
-  (resources "/")
-  (GET "/*" req (if (production?) web/create-html web/create-dev-html)))
+  (GET "/info/commit" req (commit-info req))
+  (GET "/" req (if (production?) web/create-html web/create-dev-html))
+  (resources "/"))
 
 ;; https://github.com/ring-clojure/ring-defaults
 (def http-handler
   (wrap-gzip (wrap-defaults routes api-defaults)))
+
+;; uniquely during development (w/figwheel)
+(defroutes info-routes
+  (GET "/info/commit" req (commit-info req)))
+
+;; uniquely during development (w/figwheel)
+(def info-handler
+  (wrap-defaults info-routes api-defaults))
 
 (defn running? []
   (not (nil? @server)))

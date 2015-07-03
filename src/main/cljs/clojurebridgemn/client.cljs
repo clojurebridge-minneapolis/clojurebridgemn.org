@@ -18,9 +18,11 @@
               ;; [secretary.core :as secretary :refer-macros [defroute]]
               ;; [goog.events :as events]
               ;; [goog.history.EventType :as EventType]
+              [cljs-http.client :as http]
               [clojurebridgemn.mode :as mode]
               [clojurebridgemn.data :as data]
               [clojurebridgemn.utils :refer [remove-fn assoc-if vec-index-of]]
+              [clojurebridgemn.server :as server]
               [clojurebridgemn.quirks :as quirks])
     (:import goog.History))
 
@@ -547,8 +549,8 @@
    {;; :debug "add note about bookmarks"
     ;; NOTE some browsers do not support fullscreen
     :e-order (if (quirks/can-fullscreen?)
-               [:b1 :b2 :b3 :fullscreen]
-               [:b1 :b2 :b3])
+               [:b1 :b2 :b3 :fullscreen :commit]
+               [:b1 :b2 :b3 :commit])
     :b1 {:e-order [:prevp :autop :nextp]
          :debug "Pictures "
          :prevp (button-data :label "⇐" :on-click #(prev-auto! :pictures true))
@@ -588,6 +590,8 @@
                           (fn [cursor]
                             ;; (quirks/toggle-fullscreen!)))}
                             (quirks/set-fullscreen! (:checked cursor))))}
+    :commit {:style "small.dim"
+             :debug ""}
     }
    :menu
    {:e-order [:m1 :m2 :m3 :m4 :m5 :m6 :m7 :m8 :clear]
@@ -733,6 +737,9 @@
   (reify
     om/IWillMount
     (will-mount [_]
+      (go (let [response (<! (http/get "https://api.github.com/users" {:with-credentials? false}))]
+      (prn (:status response))
+      (prn (map :login (:body response)))))
       (let [root-events (chan)]
         (sub (get-id-events) :root root-events)
         (go-loop []
@@ -799,7 +806,14 @@
     (start-auto! :pictures)
     (start-auto! :quotes)
     (set-size! (or prev-size :medium))
-    (quirks/initialize-swipe next-page! prev-page!)))
+    (quirks/initialize-swipe next-page! prev-page!)
+    ;; ask the server for last commit info, then update the settings page
+    (server/info-commit
+      #(swap! app-state (fn [a]
+                          (assoc-in a [:elements :settings :commit :debug]
+                            [:span [:i "website last updated by "]
+                                   %1 [:i " at "] %2]))))
+    ))
 
 ;; Normally we'll call initialize as soon as the JavaScript
 ;; window.onload function fires... For testing with PhantomJS however

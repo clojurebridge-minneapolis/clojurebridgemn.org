@@ -1,0 +1,191 @@
+#!/bin/sh
+# server
+# server start/stop script
+# NOTE: this is intended to run on a Linux VPS (not your Mac!)
+
+program="$(basename $0)"
+dir="$(dirname $0)"
+cd $dir
+dir="$(pwd -P)"
+cd ..
+# run from the top directory
+top="$(pwd -P)"
+# logs="$top/logs"
+logs="logs"
+
+if [ ! -d "$logs" ]; then
+    mkdir "$logs"
+fi
+
+envfile="$dir/$program.env"
+logconf="$dir/logrotate.conf"
+
+pidfile="$logs/$program.pid"
+logfile="$logs/$program.log"
+logstate="$logs/logrotate.state"
+pid=""
+jstatpidfile="$logs/jstat.pid"
+jstatlogfile="$logs/jstat.log"
+jstatpid=""
+
+if [ -e "$envfile" ]; then
+    . $envfile
+fi
+SERVER_COMMITTER=${SERVER_COMMITTER:-"anonymous"}
+SERVER_TIMESTAMP=${SERVER_TIMESTAMP:-"now"}
+SERVER_PROJECT=${SERVER_PROJECT:-$program}
+SERVER_PORT=${SERVER_PORT:-8080}
+JVM_OPTS=${JVM_OPTS:-"-server -Xms128m -Xmx512m"}
+
+vecho() {
+    [ -z "$verbose" ]  || echo >&2 "$@"
+}
+
+vcmd () {
+    vecho $*
+    $*
+}
+
+err()
+{
+    echo "${program}: $*"
+}
+
+do_usage() {
+    cat >&2 << EOF
+usage: $program [OPTIONS] ACTION
+       ACTIONS
+         start
+         stop
+         restart
+         check
+       OPTIONS
+  	 [-v]	verbose
+	 [-h]	help
+EOF
+}
+
+# returns true == 0 if running
+do_check() {
+    local rc=1
+    vecho "--- $program check ---"
+    if [ -e $pidfile ]; then
+        pid=$(cat $pidfile)
+        if [ -n "$pid" ] && kill -0 $pid > /dev/null 2>&1; then
+            rc=0
+        fi
+    fi
+    if [ $rc -eq 0 ]; then
+        vecho "$SERVER_PROJECT is running as $pid"
+    else
+        vecho "$SERVER_PROJECT is not running"
+        rm -f "$pidfile"
+    fi
+    return $rc
+}
+
+do_start() {
+    if [ ! -e "$SERVER_JAR" ]; then
+        err "jar not found: $SERVER_JAR"
+        exit 1
+    fi
+    logger -t $SERVER_PROJECT "start"
+    vecho "--- $program start ---"
+    oldverbose=$verbose
+    verbose=""
+    if do_check; then
+        verbose=$oldverbose
+        vecho "$SERVER_PROJECT is already running as $pid"
+    else
+        # rotate log files, as needed
+        if [ -e "$logconf" ]; then
+            logrotate -v -s "$logstate" "$logconf"
+        else
+            if [ -e $logfile ]; then
+	        mv $logfile $logfile.$(date +%s)
+            fi
+        fi
+        verbose=$oldverbose
+        args=""
+        args="-jar $SERVER_JAR"
+        args="$args $SERVER_PORT"
+        vecho java $JVM_OPTS $args '>' $logfile
+        java $JVM_OPTS $args > $logfile 2>&1 &
+        pid=$!
+        echo $pid > $pidfile
+        vecho "started $SERVER_PROJECT as $pid"
+        if [ -n "$JSTAT_INTERVAL" ]; then
+            if [ -e "$jstatlogfile" ]; then
+                mv "$jstatlogfile" "$jstatlogfile.1"
+            fi
+            jstat -gcutil -t $pid $JSTAT_INTERVAL > "$jstatlogfile" &
+            jstatpid=$!
+            echo $jstatpid > "$jstatpidfile"
+            vecho "started jstat as $jstatpid"
+        fi
+    fi
+    return 0
+}
+
+do_stop() {
+    logger -t $SERVER_PROJECT "stop"
+    vecho "--- $program stop ---"
+    oldverbose=$verbose
+    verbose=""
+    if do_check; then
+        verbose=$oldverbose
+        kill $pid
+        vecho "$SERVER_PROJECT pid $pid stopped"
+    else
+        verbose=$oldverbose
+        vecho "cannot stop $SERVER_PROJECT: not running"
+    fi
+    rm -rf $pidfile
+    return 0
+}
+
+do_restart() {
+    logger -t $SERVER_PROJECT "restart"
+    vecho "--- $program restart ---"
+    do_stop || true
+    sleep 3
+    do_start
+}
+
+validaction() {
+    for a in $actions; do
+        if [ "$1" = "$a" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+args=""
+verbose=""
+actions="start stop restart check"
+action="check"
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        -v|--verbose)
+	    verbose="--verbose"
+            ;;
+        -h|-?|--help)
+            action="usage"
+            ;;
+        -*)
+            action="usage"
+            ;;
+        *)
+            args="$1"
+	    if [ $# -gt 1 ] || ! validaction $args; then
+                action="usage"
+            else
+                action="$args"
+            fi
+	    ;;
+    esac
+    shift
+done
+
+do_$action
