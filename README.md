@@ -60,7 +60,8 @@ jQuery *by itself*.
 
 # auto deployment
 
-This section is *extra credit* for those curious about system administration.
+This section is *extra credit* for those curious about system administration
+(and auto deployment to a VPS).
 
 The `bin/update` script can be called with the last committer
 and last commit timestamp by the `bit/github-push.py` script which,
