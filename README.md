@@ -60,6 +60,8 @@ jQuery *by itself*.
 
 # auto deployment
 
+This section is *extra credit* for those curious about system administration.
+
 The `bin/update` script can be called with the last committer
 and last commit timestamp by the `bit/github-push.py` script which,
 itself, can be called by a git post-update hook.
@@ -76,7 +78,7 @@ file is present:
 * **SERVER_PROJECT** the name of the project (e.g. "clojurebridgemn")
 * **SERVER_JAR** the relative path to the uberjar (e.g. "target/uberjar/clojurebridgemn.jar")
 * **SERVER_PORT** the port to run the server on (by default 8080)
-* **JSTAT_INTERVAL** the interval to run [jstat](http://docs.oracle.com/javase/8/docs/technotes/tools/unix/jstat.html#BEHBBBDJ) (optional).
+* **JSTAT_INTERVAL** the interval to run [jstat](http://docs.oracle.com/javase/8/docs/technotes/tools/unix/jstat.html#BEHBBBDJ) *(optional)*.
 * **JVM_OPTS** the JVM tuning options
 * **SERVER_COMMITTER** the last committer to the repository
 * **SERVER_TIMESTAMP** the timestamp of the last commit
