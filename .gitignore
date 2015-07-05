@@ -3,7 +3,7 @@
 # projectspecific
 *.orig
 lastcommit.js
-*.log
+*.log*
 /resources/public/js/compiled/[a-z]*
 /logs
 

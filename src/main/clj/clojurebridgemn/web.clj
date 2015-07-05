@@ -76,9 +76,13 @@
 (defn append-body [nodes new-body-nodes]
   (append-at :body nodes new-body-nodes))
 
+(defn add-favicon [nodes]
+  (append-head nodes
+    (html [:link {:rel "icon" :href "/favicon.ico" :type "image/x-icon"}])))
+
 (defn add-css [nodes style-uri]
   (append-head nodes
-    (html [:link {:rel "stylesheet" :href style-uri}])))
+    (html [:link {:rel "stylesheet" :href style-uri :type "text/css"}])))
 
 (defn add-js [nodes script-uri]
   (append-head nodes
@@ -119,6 +123,7 @@
 ;; for production
 (defn create-html [& [req]]
   (-> basic-html5
+    (add-favicon)
     (add-css app-css-uri)
     (add-js app)
     (add-div "app")
@@ -126,6 +131,7 @@
 
 (defn create-test-html [& [req]]
   (-> basic-html5
+    (add-favicon)
     (add-css app-css)
     (add-js findns)
     (add-js phantomjs-shims)
