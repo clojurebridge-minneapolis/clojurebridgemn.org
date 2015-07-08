@@ -29,7 +29,7 @@
 
 (defroutes routes
   (GET "/info/commit" req (commit-info req))
-  (GET "/" req (if (production?) #(web/create-html %) #(web/create-dev-html %)))
+  (GET "/" req (if (production?) web/create-html web/create-dev-html))
   (resources "/")
   (ANY "*" []
     (not-found (slurp (io/resource "404.html")))))
