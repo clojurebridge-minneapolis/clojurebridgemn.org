@@ -104,7 +104,8 @@
   (apply str t))
 
 (defn render-snippet [s]
-  (apply str (emit* s)))
+  {:headers {"Content-Type" "text/html; charset=utf-8"}
+   :body (apply str (emit* s))})
 
 (def basic-html5 (-> basic-page
                    html5dtd
@@ -114,6 +115,7 @@
 
 (defn create-dev-html [& [req]]
   (-> basic-html5
+    (add-favicon)
     (add-css app-css-uri)
     (add-js findns-uri)
     (add-js app)

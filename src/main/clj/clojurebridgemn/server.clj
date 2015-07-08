@@ -6,8 +6,8 @@
 (ns clojurebridgemn.server
   (:gen-class) ;; for :uberjar
   (:require [clojure.java.io :as io]
-            [compojure.core :refer [GET defroutes]]
-            [compojure.route :refer [resources]]
+            [compojure.core :refer [GET ANY defroutes]]
+            [compojure.route :refer [resources not-found]]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
             [ring.middleware.gzip :refer [wrap-gzip]]
             [cheshire.core :refer [generate-string]]
@@ -29,8 +29,10 @@
 
 (defroutes routes
   (GET "/info/commit" req (commit-info req))
-  (GET "/" req (if (production?) web/create-html web/create-dev-html))
-  (resources "/"))
+  (GET "/" req (if (production?) #(web/create-html %) #(web/create-dev-html %)))
+  (resources "/")
+  (ANY "*" []
+    (not-found (slurp (io/resource "404.html")))))
 
 ;; https://github.com/ring-clojure/ring-defaults
 (def http-handler
