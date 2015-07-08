@@ -477,7 +477,7 @@
      [:br]
      ;; [:i [:a {:href "http://www.eventbrite.com/e/clojurebridge-mn-summer-2015-tickets-16555182998?aff=erelexporg"} "Sign up now"]]
      ;; " for our summer workshop June 26/27!"]
-    "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/18-19 !"
+    "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/11-12 !"
      ]}
    :logos
    {:debug
@@ -699,7 +699,7 @@
      " on Sunday 6/19 from 10am to noon (Everyone is welcome!)"
      [:br]
      [:br]
-     "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/18-19"
+     "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/11-12"
      ]
     }
    :calendar
