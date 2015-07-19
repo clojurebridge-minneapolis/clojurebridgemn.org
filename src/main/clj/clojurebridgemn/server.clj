@@ -9,6 +9,7 @@
             [compojure.core :refer [GET ANY defroutes]]
             [compojure.route :refer [resources not-found]]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
+            [ring.middleware.params :as params]
             [ring.middleware.gzip :refer [wrap-gzip]]
             [cheshire.core :refer [generate-string]]
             [environ.core :refer [env]]

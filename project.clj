@@ -4,10 +4,11 @@
   :license {:name "MIT"
             :url "http://opensource.org/licenses/MIT"}
 
-  :dependencies [[org.clojure/clojure "1.7.0-RC1"]
+  :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "0.0-3308"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
-                 [aleph "0.4.0"]
+                 [potemkin "0.4.1"]
+                 [aleph "0.4.1-alpha2" :exclusions [clj-tuple]]
                  [org.clojure/tools.namespace "0.2.10"]
                  [ring "1.3.2" :exclusions [org.clojure/tools.namespace]]
                  [ring/ring-defaults "0.1.5"]
