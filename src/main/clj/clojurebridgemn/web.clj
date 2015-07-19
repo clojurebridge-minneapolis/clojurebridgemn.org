@@ -5,7 +5,9 @@
 
 (ns clojurebridgemn.web
   (:require [net.cgrand.enlive-html :refer :all]
-            [clojurebridgemn.mode :refer :all]))
+            [clojurebridgemn.mode :refer :all]
+            [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
+            [ring.util.response :refer [response content-type]]))
 
 (def public "../../resources/public/")
 
@@ -104,8 +106,9 @@
   (apply str t))
 
 (defn render-snippet [s]
-  {:headers {"Content-Type" "text/html; charset=utf-8"}
-   :body (apply str (emit* s))})
+  (-> (apply str (emit* s))
+    response
+    (content-type "text/html")))
 
 (def basic-html5 (-> basic-page
                    html5dtd

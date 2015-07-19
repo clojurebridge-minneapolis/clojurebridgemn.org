@@ -27,9 +27,16 @@
     {:headers {"Content-Type" "application/json; charset=utf-8"}
      :body json}))
 
+(defn web-html [& [req]]
+  (if (production?)
+    (web/create-html req)
+    (web/create-dev-html req)))
+
+(def web-html-memo (memoize web-html))
+
 (defroutes routes
   (GET "/info/commit" req (commit-info req))
-  (GET "/" req (if (production?) web/create-html web/create-dev-html))
+  (GET "/" req web-html-memo)
   (resources "/")
   (ANY "*" []
     (not-found (slurp (io/resource "404.html")))))
