@@ -15,10 +15,6 @@
 
 (def app-css (str public app-css-uri))
 
-(def findns-uri "js/findns.js")
-
-(def findns (str public findns-uri))
-
 (def phantomjs-shims "../../src/test/phantomjs/phantomjs-shims.js")
 
 (def app "js/compiled/app.js")
@@ -102,9 +98,6 @@
   (append-body nodes
     (html [:textarea {:id id }])))
 
-(defn render [t]
-  (apply str t))
-
 (defn render-snippet [s]
   (-> (apply str (emit* s))
     response
@@ -120,7 +113,6 @@
   (-> basic-html5
     (add-favicon)
     (add-css app-css-uri)
-    (add-js findns-uri)
     (add-js app)
     (add-div "app")
     render-snippet))
@@ -138,7 +130,6 @@
   (-> basic-html5
     (add-favicon)
     (add-css app-css)
-    (add-js findns)
     (add-js phantomjs-shims)
     (add-js app)
     (add-div "app")
@@ -146,6 +137,6 @@
     render-snippet))
 
 (defn write-html [html-file]
-  (let [html-str (create-test-html)]
+  (let [html-str (:body (create-test-html))]
     (println "writing" app "into" html-file)
     (spit html-file html-str)))

@@ -5,28 +5,29 @@
             :url "http://opensource.org/licenses/MIT"}
 
   :dependencies [[org.clojure/clojure "1.7.0"]
-                 [org.clojure/clojurescript "0.0-3308"]
+                 [org.clojure/clojurescript "1.7.48"] ;; to match figwheel
+                 [org.codehaus.plexus/plexus-utils "3.0.22"] ;; for figwheel
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [potemkin "0.4.1"]
                  [aleph "0.4.1-alpha2" :exclusions [clj-tuple]]
-                 [org.clojure/tools.namespace "0.2.10"]
-                 [ring "1.3.2" :exclusions [org.clojure/tools.namespace]]
+                 [ring "1.4.0"]
                  [ring/ring-defaults "0.1.5"]
                  [amalloy/ring-gzip-middleware "0.1.3"]
                  [commons-codec "1.10"]
-                 [compojure "1.3.4" :exclusions [commons-codec]]
-                 [enlive "1.1.5"]
-                 [cheshire "5.4.0"]
+                 [compojure "1.4.0"]
+                 [enlive "1.1.6"]
+                 [cheshire "5.5.0"]
                  [environ "1.0.0"]
                  ;; cljs
-                 [org.omcljs/om "0.8.8"]
-                 [sablono "0.3.4"]
+                 [org.omcljs/om "0.9.0"]
+                 [sablono "0.3.6"]
                  [secretary "1.2.3"]
-                 [cljs-http "0.1.35"]]
+                 [cljs-http "0.1.37"]]
 
   :plugins [[lein-cljsbuild "1.0.6"]
-            [lein-figwheel "0.3.1"
-             :exclusions [org.clojure/clojure]]
+            [lein-figwheel "0.3.8-SNAPSHOT"
+             :exclusions [org.clojure/clojure
+                          org.codehaus.plexus/plexus-utils]]
             [lein-environ "1.0.0"]]
 
   :hooks [leiningen.cljsbuild]
@@ -54,7 +55,8 @@
 
   :profiles
   {:dev {:env {:program-mode :dev}
-         :dependencies [[net.info9/clj-webdriver "0.7.4"]]
+         :dependencies [[net.info9/clj-webdriver "0.7.5"
+                         :exclusions [commons-codec]]]
          :test-paths ["src/test/clj"]
          :cljsbuild
          {:builds

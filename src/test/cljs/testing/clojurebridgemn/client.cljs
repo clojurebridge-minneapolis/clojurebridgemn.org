@@ -4,10 +4,10 @@
 ;; https://github.com/clojurebridge-minneapolis/clojurebridgemn.org
 
 (ns testing.clojurebridgemn.client
-  (:require-macros [cljs.test :refer (is deftest testing)])
+  (:require-macros [cljs.test :refer [is deftest testing]])
   (:require [cljs.test]
             [clojurebridgemn.mode :as mode]
-            [clojurebridgemn.client :refer (app-state)]))
+            [clojurebridgemn.client :refer [app-state menu-icons]]))
 
 ;; here cljs can be tested with or without the server running
 
@@ -16,4 +16,5 @@
     (is (not (mode/development?)))
     (is (mode/testing?))
     (is (not (mode/production?)))
-    (is (= (:text @app-state) "Hello world!"))))
+    (is (= (:e-order @app-state) [:elements]))
+    (is (= (:home menu-icons) "⌂"))))

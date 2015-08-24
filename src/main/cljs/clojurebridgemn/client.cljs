@@ -475,9 +475,9 @@
     [:div.small.center "Free, beginner-friendly Clojure programming workshops for women"
      [:br]
      [:br]
-     ;; [:i [:a {:href "http://www.eventbrite.com/e/clojurebridge-mn-summer-2015-tickets-16555182998?aff=erelexporg"} "Sign up now"]]
-     ;; " for our summer workshop June 26/27!"]
-    "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/11-12 !"
+     [:i [:a {:href "http://www.eventbrite.com/e/clojurebridge-mn-fall-2015-tickets-18237438670"} "Sign up now"]]
+     " for our fall workshop September 11/12!"
+     ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/11-12 !"
      ]}
    :logos
    {:debug
@@ -782,11 +782,7 @@
                    :root (dropping-buffer 4)
                    (sliding-buffer 3)))
         id-events (pub events :id buf-fn)]
-    (if (exists? js/findns) ;; if we included js/findns.js
-      (reset! mode/program-mode
-        (if (mode/ns-exists? 'testing) :test
-            (if (mode/ns-exists? 'production) :prod :dev))))
-    (println "program-mode:" @mode/program-mode)
+    (println "program-mode:" (mode/get-program-mode))
     (println "user-agent:" quirks/user-agent)
     (stop-auto! :pictures)
     (stop-auto! :quotes)
@@ -822,5 +818,5 @@
   (set! (.-onload js/window) initialize))
 
 ;; If we are in :dev mode we will re-initialize automatically on reload
-(when (mode/development?)
+(when (and (mode/development?) (gdom/getElement "app"))
   (initialize))

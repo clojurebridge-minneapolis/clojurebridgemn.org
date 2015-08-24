@@ -58,9 +58,9 @@
       (enable-console-print!)
       (set-print-fn! printfn))
     (println "Running cljs test...")
-    (when (mode/production?) ;; default program-mode still unchanged...
-      (println "initializing for PhantomJS...")
-      (initialize))
+    (mode/set-program-mode!)
+    (println "initializing for PhantomJS...")
+    (initialize)
     (let [env (cljs.test/empty-env ::testing)
           old-summary (run-tests env 'testing.clojurebridgemn.client)
           passed? (cljs.test/successful? @summary)]

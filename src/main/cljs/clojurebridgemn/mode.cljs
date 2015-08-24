@@ -5,35 +5,35 @@
 
 (ns clojurebridgemn.mode)
 
-;; by default the program-mode is :prod
-;; if we have loaded the JavaScript function findns
-;; then we can determine which namespaces have been loaded and
-;; switch to the correct mode as needed
-(defonce program-mode (atom :prod))
+(defonce program-mode (atom nil))
+
+(defn set-program-mode! []
+  (reset! program-mode
+    (if (find-ns 'testing.clojurebridgemn.client) :test
+        (if (find-ns 'production.prod) :prod :dev))))
+
+(defn get-program-mode []
+  (when-not @program-mode
+    (set-program-mode!))
+  @program-mode)
 
 (defn development?
   "Returns true if in :dev mode"
   []
+  (when-not @program-mode
+    (set-program-mode!))
   (= @program-mode :dev))
 
 (defn testing?
   "Returns true if in :test mode"
   []
+  (when-not @program-mode
+    (set-program-mode!))
   (= @program-mode :test))
 
 (defn production?
   "Returns true if in :prod mode"
   []
+  (when-not @program-mode
+    (set-program-mode!))
   (= @program-mode :prod))
-
-(defn find-ns
-  "Returns JavaScript object corresponding to the namespace ns if it exists. Argument may be a symbol or a string"
-  [ns]
-  (when (exists? js/findns)
-    (let [ns (if (symbol? ns) (name ns) ns)]
-      (js/findns ns))))
-
-(defn ns-exists?
-  "Returns true if the given ns exists. Argument may be a symbol or a string"
-  [ns]
-  (not (nil? (find-ns ns))))
