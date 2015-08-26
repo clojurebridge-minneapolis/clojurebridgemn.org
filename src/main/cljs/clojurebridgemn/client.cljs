@@ -475,7 +475,7 @@
      [:br]
      [:br]
      [:i [:a {:href "http://www.eventbrite.com/e/clojurebridge-mn-fall-2015-tickets-18237438670"} "Sign up now"]]
-     " for our fall workshop September 11/12!"
+     " for our fall workshop September 11-12!"
      ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/11-12 !"
      ]}
    :logos
@@ -609,13 +609,13 @@
    {:debug
     [:div "ClojureBridge has been made possible locally through the generous support of our sponsors and individual donors"
      [:ul
-      [:li "September 11/12 2015: Vidku"
+      [:li "September 11-12 2015: Vidku"
        [:br]
        [:img {:alt "Vidku"
               :src "images/sponsors/vidku_400x400.png"
               }]
        ]
-      [:li "June 26/27 2015: BridgeFoundry, Clockwork, O'Reilly"
+      [:li "June 26-27 2015: BridgeFoundry, Clockwork, O'Reilly"
        [:br]
        [:img {:alt "Bridge Foundry"
               :src "images/clojurebridge.png"
@@ -627,7 +627,7 @@
               :src "images/sponsors/ORM.jpg"
               }]
        ]
-      [:li "March 6/7 2015: UMSEC, Trivent, Adobe, O'Reilly"
+      [:li "March 6-7 2015: UMSEC, Trivent, Adobe, O'Reilly"
        [:br]
        [:img {:alt "UMSEC"
               :src "images/sponsors/umseclogo.jpg"
@@ -643,7 +643,7 @@
               }]
        ]
       [:li
-       "May 16/17 2014: DevJam Studios, Code 42, Brick Alloy, Lispcast"
+       "May 16-17 2014: DevJam Studios, Code 42, Brick Alloy, Lispcast"
        [:br]
        [:img {:alt "DevJam Studios"
               :src "images/sponsors/DevJam-Studios.png"
@@ -696,7 +696,7 @@
      [:br]
      "Stay tuned for more information about our upcoming workshop at "
      [:a {:href "http://vidku.com"} "Vidku"]
-     " on September 11/12!"
+     " on September 11-12!"
      [:br]
      [:br]
      "Want to connect with the local Clojure community?"
