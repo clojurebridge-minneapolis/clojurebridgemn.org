@@ -3,7 +3,31 @@
 ;; Licensed under the MIT license
 ;; https://github.com/clojurebridge-minneapolis/clojurebridgemn.org
 
-(ns clojurebridgemn.utils)
+(ns clojurebridgemn.utils
+  (:require [goog.string :as gstring]
+            [goog.object :as gobject]
+            [goog.array :as garray])
+  (:import [goog.string StringBuffer]))
+
+;; program-mode
+
+;; http://www.martinklepsch.org/posts/parameterizing-clojurescript-builds.html
+(goog-define program-mode "uninitialized")
+
+(defn development?
+  "Returns true if in :dev mode"
+  []
+  (= program-mode "dev"))
+
+(defn testing?
+  "Returns true if in :test mode"
+  []
+  (= program-mode "test"))
+
+(defn production?
+  "Returns true if in :prod mode"
+  []
+  (= program-mode "prod"))
 
 ;; printing helpers ---------------------------------
 

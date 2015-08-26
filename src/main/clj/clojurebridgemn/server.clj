@@ -14,7 +14,7 @@
             [cheshire.core :refer [generate-string]]
             [environ.core :refer [env]]
             [aleph.http :refer [start-server]]
-            [clojurebridgemn.mode :refer :all]
+            [clojurebridgemn.utils :as utils]
             [clojurebridgemn.web :as web]))
 
 ;; The server is the http server which will serve the application
@@ -29,7 +29,7 @@
      :body json}))
 
 (defn web-html [& [req]]
-  (if (production?)
+  (if (utils/production?)
     (web/create-html req)
     (web/create-dev-html req)))
 
@@ -87,7 +87,7 @@
   (let [arg1 (first args)
         port-str (or arg1 (:port env))
         port (or (and port-str (Integer. port-str)) 8080)]
-    (println "program-mode" @program-mode)
+    (println "program-mode" utils/program-mode)
     (run port)
     (while true
       (print ".")

@@ -5,7 +5,6 @@
 
 (ns clojurebridgemn.web
   (:require [net.cgrand.enlive-html :refer :all]
-            [clojurebridgemn.mode :refer :all]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
             [ring.util.response :refer [response content-type]]))
 

@@ -19,9 +19,8 @@
               ;; [goog.events :as events]
               ;; [goog.history.EventType :as EventType]
               [cljs-http.client :as http]
-              [clojurebridgemn.mode :as mode]
               [clojurebridgemn.data :as data]
-              [clojurebridgemn.utils :refer [remove-fn assoc-if vec-index-of]]
+              [clojurebridgemn.utils :refer [remove-fn assoc-if vec-index-of program-mode development?]]
               [clojurebridgemn.server :as server]
               [clojurebridgemn.quirks :as quirks])
     (:import goog.History))
@@ -610,6 +609,12 @@
    {:debug
     [:div "ClojureBridge has been made possible locally through the generous support of our sponsors and individual donors"
      [:ul
+      [:li "September 11/12 2015: Vidku"
+       [:br]
+       [:img {:alt "Vidku"
+              :src "images/sponsors/vidku_400x400.png"
+              }]
+       ]
       [:li "June 26/27 2015: BridgeFoundry, Clockwork, O'Reilly"
        [:br]
        [:img {:alt "Bridge Foundry"
@@ -689,17 +694,20 @@
    {:debug
     [:div
      [:br]
-     "We want to thank all the students and volunteers that made our ClojureBridgeMN workshop at "
-     [:a {:href "http://clockwork.net"} "Clockwork Active Media Systems"]
-     " on June 26/27 a success!"
+     "Stay tuned for more information about our upcoming workshop at "
+     [:a {:href "http://vidku.com"} "Vidku"]
+     " on September 11/12!"
      [:br]
      [:br]
-     "Want to continue working on Clojure projects? Join us for our next 'hack time' at "
-     [:a {:href "http://www.quixoticcoffee.com/"} "Quixotic Coffee"]
-     " on Sunday 6/19 from 10am to noon (Everyone is welcome!)"
+     "Want to connect with the local Clojure community?"
      [:br]
      [:br]
-     "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/11-12"
+     "Join us for our next "
+     [:a {:href "http://clojure.mn/"} "clojure.mn"]
+     " meeting on September 9th!"
+     [:br]
+     [:br]
+     ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/11-12"
      ]
     }
    :calendar
@@ -722,6 +730,7 @@
      [:br]
      [:ul
       [:li "Global " [:a {:href "http://clojurebridge.org"} "ClojureBridge"] " organization"]
+      [:li "Contact us at info@ClojureBridgeMN.org"]
       [:li "Local " [:a {:href "http://clojure.mn"} "clojure.mn"] " user group (meets every 2nd Wednesday)"]
       [:li "ClojureBridge "
        [:a {:href "http://bit.ly/cb-mn"} "installfest"] " and "
@@ -782,7 +791,7 @@
                    :root (dropping-buffer 4)
                    (sliding-buffer 3)))
         id-events (pub events :id buf-fn)]
-    (println "program-mode:" (mode/get-program-mode))
+    (println "program-mode:" program-mode)
     (println "user-agent:" quirks/user-agent)
     (stop-auto! :pictures)
     (stop-auto! :quotes)
@@ -818,5 +827,5 @@
   (set! (.-onload js/window) initialize))
 
 ;; If we are in :dev mode we will re-initialize automatically on reload
-(when (and (mode/development?) (gdom/getElement "app"))
+(when (and (development?) (gdom/getElement "app"))
   (initialize))

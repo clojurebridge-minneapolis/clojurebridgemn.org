@@ -5,7 +5,8 @@
             :url "http://opensource.org/licenses/MIT"}
 
   :dependencies [[org.clojure/clojure "1.7.0"]
-                 [org.clojure/clojurescript "1.7.48"] ;; to match figwheel
+                 [org.clojure/clojurescript "1.7.107"]
+                 ;; [org.clojure/clojurescript "1.7.48"] ;; to match figwheel
                  [org.codehaus.plexus/plexus-utils "3.0.22"] ;; for figwheel
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [potemkin "0.4.1"]
@@ -63,10 +64,9 @@
           {:app
            {:source-paths ["src/main/cljs"]
             :figwheel {:websocket-host
-                       ;; "localhost"
-                       "m.info9.net"
-                       }
+                       :js-client-host}
             :compiler {:main clojurebridgemn.client
+                       :closure-defines {"clojurebridgemn.utils.program_mode" "dev"}
                        :output-dir "resources/public/js/compiled"
                        :output-to  "resources/public/js/compiled/app.js"
                        :asset-path "js/compiled"
@@ -86,8 +86,10 @@
           {:builds
            {:app
             {:source-paths ["src/main/cljs" "src/test/cljs"]
-             :figwheel {:websocket-host "localhost"}
+             :figwheel {:websocket-host
+                        :js-client-host}
              :compiler {:main testing.runner
+                        :closure-defines {"clojurebridgemn.utils.program_mode" "test"}
                         :output-dir    "target/test/js/compiled"
                         :output-to     "target/test/js/compiled/app.js"
                         :source-map    true
@@ -103,6 +105,7 @@
            {:app
             {:source-paths ["src/main/cljs" "src/prod/cljs"]
              :compiler {:main clojurebridgemn.client
+                        :closure-defines {"clojurebridgemn.utils.program_mode" "prod"}
                         :output-dir "resources/public/js/compiled"
                         :output-to  "resources/public/js/compiled/app.js"
                         :asset-path "js/compiled"

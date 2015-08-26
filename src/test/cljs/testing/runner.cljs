@@ -7,8 +7,7 @@
   (:require-macros [cljs.test :refer (run-tests)])
   (:require [goog.dom :as gdom]
             [cljs.test]
-            [clojurebridgemn.mode :as mode]
-            [clojurebridgemn.client :refer (initialize)]
+            [clojurebridgemn.client :refer [initialize]]
             [testing.clojurebridgemn.client]))
 
 ;; pending the resolution of
@@ -58,7 +57,6 @@
       (enable-console-print!)
       (set-print-fn! printfn))
     (println "Running cljs test...")
-    (mode/set-program-mode!)
     (println "initializing for PhantomJS...")
     (initialize)
     (let [env (cljs.test/empty-env ::testing)

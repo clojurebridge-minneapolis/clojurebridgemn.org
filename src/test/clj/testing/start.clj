@@ -8,7 +8,7 @@
             [testing.selenium :as wd]
             [testing.web :as web]
             [environ.core :refer [env]]
-            [clojurebridgemn.mode :refer :all]))
+            [clojurebridgemn.utils :as utils]))
 
 ;; this is the entry point used by the lein-selenium script
 
@@ -17,8 +17,8 @@
     ;; NOTE: because 'lein test' runs with both dev and test profiles
     ;; the program-mode env variable will be set to :dev...
     ;; here we know we are really in :test mode
-    (reset! program-mode :test)
-    (println "program-mode" @program-mode)
+    (utils/force-test-mode!)
+    (println "program-mode" utils/program-mode)
     (println "selenium-browser" (:selenium-browser env))
     (println "selenium-profile" (:selenium-profile env))
     (try
