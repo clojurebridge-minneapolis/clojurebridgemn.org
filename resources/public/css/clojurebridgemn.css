@@ -394,6 +394,70 @@ img {
     background-image: url(../images/pictures/clojurebridge-12.jpg);
 }
 
+.pictures13 {
+    background-image: url(../images/pictures/cbmn-summer-2015-097.jpg);
+}
+
+.pictures14 {
+    background-image: url(../images/pictures/cbmn-summer-2015-017.jpg);
+}
+
+.pictures15 {
+    background-image: url(../images/pictures/cbmn-summer-2015-042.jpg);
+}
+
+.pictures16 {
+    background-image: url(../images/pictures/cbmn-summer-2015-084.jpg);
+}
+
+.pictures17 {
+    background-image: url(../images/pictures/cbmn-summer-2015-043.jpg);
+}
+
+.pictures18 {
+    background-image: url(../images/pictures/cbmn-summer-2015-051.jpg);
+}
+
+.pictures19 {
+    background-image: url(../images/pictures/cbmn-summer-2015-068.jpg);
+}
+
+.pictures20 {
+    background-image: url(../images/pictures/cbmn-summer-2015-070.jpg);
+}
+
+.pictures21 {
+    background-image: url(../images/pictures/cbmn-summer-2015-073.jpg);
+}
+
+.pictures22 {
+    background-image: url(../images/pictures/cbmn-summer-2015-076.jpg);
+}
+
+.pictures23 {
+    background-image: url(../images/pictures/cbmn-summer-2015-072.jpg);
+}
+
+.pictures24 {
+    background-image: url(../images/pictures/cbmn-summer-2015-062.jpg);
+}
+
+.pictures25 {
+    background-image: url(../images/pictures/cbmn-summer-2015-088.jpg);
+}
+
+.pictures26 {
+    background-image: url(../images/pictures/cbmn-summer-2015-079.jpg);
+}
+
+.pictures27 {
+    background-image: url(../images/pictures/cbmn-summer-2015-111.jpg);
+}
+
+.pictures28 {
+    background-image: url(../images/pictures/cbmn-summer-2015-126.jpg);
+}
+
 /* responsive heuristics */
 
 @media (min-width: 480px) and (max-resolution: 201dpi),
