@@ -4,9 +4,13 @@ Source for the clojurebridgemn.org website
 
 Are you (or do you know) a developer that might want to learn
 Clojure in the Minneapolis / St. Paul area? We still have
-openings for Track 2 at the next [ClojureBridgeMN](http://ClojureBridgeMN.org) workshop!
+openings at the next [ClojureBridgeMN](http://ClojureBridgeMN.org) workshop!
 
 ## documentation
+
+_NOTE as of 0.3.0_: This is not a great example of Clojure/ClojureScript
+programming for the web, but more like a work in progress. Future direction
+will remove excess state mutation and will be based on om.next.
 
 Now [ClojureBridgeMN](http://ClojureBridgeMN.org) is based on ClojureScript and Om!
 

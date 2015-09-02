@@ -6,6 +6,7 @@
 
 var page = require('webpage').create();
 var url = phantom.args[0];
+var testsrun = false;
 
 function exit(code) {
   setTimeout(function(){ phantom.exit(code); }, 0);
@@ -23,6 +24,8 @@ function runtests() {
     return testing.runner.runtests(true);
   });
 
+  testsrun = true;
+
   if (result != 0) {
     // console.log("*** Test failed! ***");
     exit(1);
@@ -34,16 +37,22 @@ function runtests() {
 }
 
 page.onLoadFinished = function (status) {
-  if (status != "success") {
-    console.log('Failed to load ' + url);
-    exit(1);
+  if (testsrun) {
+    ; // console.log("PhantomJS called onLoadFinished twice")
+  } else {
+    if (status != "success") {
+      console.log('Failed (' + status + ') to load ' + url);
+      exit(1);
+    } else {
+      // console.log('Succeeded (' + status + ') to load ' + url);
+      runtests();
+    }
   }
-  runtests();
 };
 
 function openCallback(status) {
   if (status != "success") {
-    console.log('Failed to open ' + url);
+    console.log('Failed (' + status + ') to open ' + url);
     phantom.exit(1);
   }
   // console.log("opened: " + url);

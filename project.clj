@@ -1,12 +1,11 @@
-(defproject clojurebridgemn "0.2.3"
+(defproject clojurebridgemn "0.3.0"
   :description "ClojureScriptMN.org website"
   :url "https://github.com/clojurebridge-minneapolis/clojurebridgemn.org"
   :license {:name "MIT"
             :url "http://opensource.org/licenses/MIT"}
 
   :dependencies [[org.clojure/clojure "1.7.0"]
-                 [org.clojure/clojurescript "1.7.107"]
-                 ;; [org.clojure/clojurescript "1.7.48"] ;; to match figwheel
+                 [org.clojure/clojurescript "1.7.122"]
                  [org.codehaus.plexus/plexus-utils "3.0.22"] ;; for figwheel
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [potemkin "0.4.1"]
@@ -26,7 +25,7 @@
                  [cljs-http "0.1.37"]]
 
   :plugins [[lein-cljsbuild "1.0.6"]
-            [lein-figwheel "0.3.8-SNAPSHOT"
+            [lein-figwheel "0.3.8"
              :exclusions [org.clojure/clojure
                           org.codehaus.plexus/plexus-utils]]
             [lein-environ "1.0.0"]]
@@ -34,7 +33,7 @@
   :hooks [leiningen.cljsbuild]
 
   :figwheel {:css-dirs ["resources/public/css"]
-             :open-file-command "myfile-opener"
+             ;; :open-file-command "myfile-opener"
              :ring-handler clojurebridgemn.server/info-handler}
 
   :source-paths ["src/main/clj"]
@@ -63,8 +62,8 @@
          {:builds
           {:app
            {:source-paths ["src/main/cljs"]
-            :figwheel {:websocket-host
-                       :js-client-host}
+            :figwheel {:websocket-host :js-client-host
+                       :on-jsload "clojurebridgemn.client/figwheel-reload"}
             :compiler {:main clojurebridgemn.client
                        :closure-defines {"clojurebridgemn.utils.program_mode" "dev"}
                        :output-dir "resources/public/js/compiled"

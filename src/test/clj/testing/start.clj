@@ -18,7 +18,7 @@
     ;; the program-mode env variable will be set to :dev...
     ;; here we know we are really in :test mode
     (utils/force-test-mode!)
-    (println "program-mode" utils/program-mode)
+    (println "SERVER program-mode" utils/program-mode)
     (println "selenium-browser" (:selenium-browser env))
     (println "selenium-profile" (:selenium-profile env))
     (try

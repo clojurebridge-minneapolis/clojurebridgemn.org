@@ -51,7 +51,7 @@
 
 ;; associate k v in m iff v
 (defn assoc-if [m k v]
-  (if v
+  (if (not (nil? v))
     (assoc m k v)
     m))
 
@@ -61,3 +61,35 @@
     (remove nil?
       (for [i (range (count v))]
         (if (= (get v i) o) i)))))
+
+;; web -------------------------------------------------------
+
+(def secure-protocols {"https" true
+                       "wss" true})
+
+(defn protocol-secure [protocol secure]
+  (if secure
+    (if (get secure-protocols protocol false)
+      protocol ;; already secure
+      (str protocol "s")) ;; add the "s"
+    (if (get secure-protocols protocol false)
+      (subs protocol 0 (dec (count protocol))) ;; remove the "s"
+      protocol)))
+
+;; without any opts make-url returns the "base-url" for this site
+(defn make-url [& {:keys [protocol hostname port uri secure] :as opts}]
+  (let [location (.-location js/document)
+        href (.-href location)
+        [base anchor] (gstring/splitLimit href "#" 2)
+        p (let [p (.-protocol location)] (subs p 0 (dec (count p)))) ;; no ":"
+        secure (or secure (get secure-protocols p false))
+        protocol (or protocol p)
+        protocol (protocol-secure protocol secure)
+        hostname (or hostname (.-hostname location))
+        port (str (or port (.-port location)))
+        server (str hostname (if-not (empty? port) (str ":" port)))
+        uri (or uri "/")
+        url (str protocol "://" server uri)]
+    (if (and (empty? opts) (= protocol "file"))
+      base
+      url)))

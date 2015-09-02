@@ -85,6 +85,10 @@
   (append-head nodes
     (html [:script {:type "text/javascript" :src script-uri}])))
 
+(defn add-element [nodes & {:keys [element] :as opts}]
+  (append-body nodes
+    (html [element (dissoc opts :element)])))
+
 (defn add-h1 [nodes heading]
   (append-body nodes
     (html [:h1 heading])))
@@ -113,6 +117,8 @@
     (add-favicon)
     (add-css app-css-uri)
     (add-js app)
+    (add-element :element :input :id "history-input" :name "history-input" :type "text")
+    (add-element :element :iframe :id "history-iframe")
     (add-div "app")
     render-snippet))
 
@@ -122,6 +128,8 @@
     (add-favicon)
     (add-css app-css-uri)
     (add-js app)
+    (add-element :element :input :id "history-input" :name "history-input" :type "text")
+    (add-element :element :iframe :id "history-iframe")
     (add-div "app")
     render-snippet))
 
@@ -131,6 +139,8 @@
     (add-css app-css)
     (add-js phantomjs-shims)
     (add-js app)
+    (add-element :element :input :id "history-input" :name "history-input" :type "text")
+    (add-element :element :iframe :id "history-iframe")
     (add-div "app")
     (add-textarea "out")
     render-snippet))

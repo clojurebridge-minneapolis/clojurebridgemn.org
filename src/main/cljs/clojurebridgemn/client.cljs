@@ -8,35 +8,23 @@
     (:require [clojure.set :refer [difference]]
               [cljs.pprint :refer [pprint]]
               [cljs.core.async :as async
-               :refer [<! >! chan pub put! sub take! timeout sliding-buffer dropping-buffer]]
+               :refer [<! >! chan pub put! sub take! timeout buffer sliding-buffer dropping-buffer]]
               [om.core :as om :include-macros true]
               [om.dom :as dom :include-macros true]
               [goog.string :as gstring]
               [goog.dom :as gdom]
               [sablono.core :as html :refer-macros [html]]
-              ;; secretary not used yet
-              ;; [secretary.core :as secretary :refer-macros [defroute]]
-              ;; [goog.events :as events]
-              ;; [goog.history.EventType :as EventType]
+              [secretary.core :as secretary :refer-macros [defroute]]
+              [goog.events :as events]
+              [goog.history.EventType :as EventType]
               [cljs-http.client :as http]
               [clojurebridgemn.data :as data]
-              [clojurebridgemn.utils :refer [remove-fn assoc-if vec-index-of program-mode development?]]
+              [clojurebridgemn.utils :refer [remove-fn assoc-if vec-index-of program-mode development? make-url]]
               [clojurebridgemn.server :as server]
               [clojurebridgemn.quirks :as quirks])
     (:import goog.History))
 
 (enable-console-print!)
-
-;; secretary not used yet
-
-;; (secretary/set-config! :prefix "#")
-
-;; (defroute page-route "/:page" [page query-params]
-;;   (println "PAGE" page "QUERY" (pr-str query-params)))
-
-;; (let [h (History.)]
-;;   (events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
-;;   (doto h (.setEnabled true)))
 
 ;; Om application ===========================
 
@@ -49,7 +37,7 @@
    :donations "✋"
    :blog "✍"
    :calendar "▦"
-   :links "▻"
+   :links "λ"
    :settings "⇄"
    :pix+quotes "☙"})
 
@@ -58,6 +46,7 @@
 (def swipe-pages (vec (difference (set (keys menu-icons)) no-arrows-pages)))
 
 (def subdued-pages (difference (set swipe-pages) #{:home :settings :pix+quotes}))
+
 ;; debugging helper to inspect app-state on the REPL
 (defn ppstate [& [ks]]
   (let [state (if ks
@@ -106,29 +95,28 @@
         header (get-in @app-state [:elements :header])
         current-page (:page header)
         prev-page (or (:prev-page header) :home)
-        ;; _ (println "GOTO" page "current-page" current-page "prev-page" prev-page)
         new-page (if (= page :toggle-menu)
                    (if (= current-page :menu) prev-page :menu)
                    page)]
-    ;; (println "goto-page!" new-page "prev-page" current-page
-    (put-event! {:id :root :page new-page :prev-page current-page})
-    ))
+    (put-event! {:id :root :page new-page :prev-page current-page})))
 
-(defn prev-page! []
+;; return the previous swipe-able page
+(defn prev-page []
   (let [page (get-in @app-state [:elements :header :page])
         n (count swipe-pages)
         i (dec (vec-index-of swipe-pages page))
         i (if (< i 0) (dec n) i)
         new-page (nth swipe-pages i)]
-    (goto-page! new-page)))
+    new-page))
 
-(defn next-page! []
+;; return the next swipe-able page
+(defn next-page []
   (let [page (get-in @app-state [:elements :header :page])
         n (count swipe-pages)
         i (inc (vec-index-of swipe-pages page))
         i (if (>= i n) 0 i)
         new-page (nth swipe-pages i)]
-    (goto-page! new-page)))
+    new-page))
 
 ;; auto-advance tools -----------------------------------
 
@@ -143,11 +131,18 @@
 (defn get-auto [k]
   (get-in @app-state [:elements k :i]))
 
+;; returns true if auto-pix is on, false if off
+(defn get-auto-pix []
+  (not (not (get-in @app-state [:elements :pictures :auto-id]))))
+
+;; returns true if auto-quotes is on, false if off
+(defn get-auto-quotes []
+  (not (not (get-in @app-state [:elements :quotes :auto-id]))))
+
 ;; set the current thing :i for k
 (defn set-auto! [k i]
   (let [n (get-in @app-state [:elements k :n])
         i (if (>= i n) 0 (if (< i 0) (dec n) i))]
-    ;; (println "auto" k "i:" i)
     (swap! app-state #(assoc-in % [:elements k :i] i))
     nil))
 
@@ -159,11 +154,15 @@
     (when auto-id
       (js/clearTimeout auto-id)
       (swap! app-state assoc-in [:elements k :auto-id] nil)
-      ;; (println "stopped auto" k "[" auto-id "]"))
-      (if (and (not restart) checkbox) ;; tell checkbox STOP
-        (put-event! {:id checkbox :checked false})))))
+      (when (and (not restart) checkbox) ;; tell checkbox STOP
+        ;; handle case where checkbox has not yet been mounted
+        (let [pending (get-in @app-state [:channels checkbox])]
+          (if (vector? pending) ;; NOT yet mounted
+            (swap! app-state update-in [:channels checkbox] conj false)
+            (put-event! {:id checkbox :checked false})))))))
 
 (declare next-auto!)
+(declare goto-uri)
 
 ;; start auto advancing for k
 ;; if continue then restart timer
@@ -174,34 +173,144 @@
       (stop-auto! k true))
     (let [auto-id (js/setTimeout #(next-auto! k) (* delay 1000))]
       (swap! app-state assoc-in [:elements k :auto-id] auto-id)
-      ;; (println "started auto" k "[" auto-id "]")
-      (if (and (not continue) checkbox) ;; tell checkbox START
-        (put-event! {:id checkbox :checked true})))))
-
-(defn toggle-auto! [k & [e]]
-  (let [component (get-in @app-state [:elements k])
-        {:keys [auto-id]} component]
-    (if auto-id
-      (stop-auto! k)
-      (start-auto! k))
-    (when e
-      (.preventDefault e)
-      (.stopPropagation e))))
+      (when (and (not continue) checkbox) ;; tell checkbox START
+        ;; handle case where checkbox has not yet been mounted
+        (let [pending (get-in @app-state [:channels checkbox])]
+          (if (vector? pending) ;; NOT yet mounted
+              (swap! app-state update-in [:channels checkbox] conj true)
+              (put-event! {:id checkbox :checked true})))))))
 
 ;; ask to advance to the next thing
-;; if stop then STOP auto advancing after you move (button)
-;; else restart the timer (automatic)
-(defn next-auto! [k & [stop]]
-  (if stop
-    (stop-auto! k)
-    (start-auto! k true)) ;; new setTimeout
-  (set-auto! k (inc (get-auto k))))
+(defn next-auto! [k]
+  (start-auto! k true) ;; new setTimeout
+  (if (= k :pictures)
+    (goto-uri :picture +1)
+    (goto-uri :quote +1)))
 
-;; ask to return to the previous thing
-;; if stop then STOP auto advancing after you move (button)
-(defn prev-auto! [k & [stop]]
-  (if stop (stop-auto! k))
-  (set-auto! k (dec (get-auto k))))
+;; page routing --------------------------------------------------------------
+
+(secretary/set-config! :prefix "#")
+
+(defn click-uri [uri]
+  (let [base-url (get-in @app-state [:base-url])
+        current-uri (.-href (.-location js/window))
+        current-uri (if (gstring/startsWith current-uri base-url)
+                      (subs current-uri (count base-url))
+                      current-uri)
+        ;; the following will clear wonky, hand crafted URL's
+        uri (if (or (empty? current-uri) (= (first current-uri) "#"))
+              uri
+              (str base-url uri))]
+    (if (not= uri current-uri)
+      (set! (.-href (.-location js/window)) uri))))
+
+(defn goto-uri [&{:keys [page picture quote auto-pix auto-quotes] :as opts}]
+  (let [current-pg (get-in @app-state [:elements :header :page])
+        page (if (integer? page) ;; relative movement?
+               (if (pos? page) (next-page) (prev-page))
+               page)
+        page (or page current-pg)
+        pg (keyword page)
+        pg (if (get menu-icons pg) pg :home) ;; fix invalid page here
+        page (name pg)
+        current-p (get-auto :pictures)
+        max-p (get-in @app-state [:elements :pictures :n])
+        current-auto-pix (get-auto-pix)
+        auto-pix (if (nil? auto-pix) current-auto-pix auto-pix)
+        p (cond
+            (integer? picture) ;; relative movement
+            (let [p (+ current-p picture)]
+              (if (>= p max-p) 0 (if (< p 0) (dec max-p) p)))
+            (string? picture) (int (last (gstring/splitLimit picture "-" 1)))
+            :else current-p)
+        p (max 0 (min p (dec max-p)))
+        picture (str "picture-" p)
+        current-q (get-auto :quotes)
+        max-q (get-in @app-state [:elements :quotes :n])
+        current-auto-quotes (get-auto-quotes)
+        auto-quotes (if (nil? auto-quotes) current-auto-quotes auto-quotes)
+        q (cond
+            (integer? quote) ;; relative movement
+            (let [q (+ current-q quote)]
+              (if (>= q max-q) 0 (if (< q 0) (dec max-q) q)))
+            (string? quote) (int (last (gstring/splitLimit quote "-" 1)))
+            :else current-q)
+        q (max 0 (min q (dec max-q)))
+        quote (str "quote-" q)
+        query-params (when (or auto-pix auto-quotes)
+                       (str "?"
+                         (if auto-pix "auto-pix=1")
+                         (if auto-quotes (if auto-pix "&auto-quotes=1"
+                                             "auto-quotes=1"))))
+        uri (str "#/" page "/" picture "/" quote query-params)]
+    (when-not (= pg current-pg) ;; page changed
+      (goto-page! pg))
+    (when-not (= p current-p) ;; picture changed
+      (set-auto! :pictures p))
+    (when-not (= auto-pix current-auto-pix) ;; auto-pix changed
+      (if auto-pix
+        (start-auto! :pictures)
+        (stop-auto! :pictures)))
+    (when-not (= q current-q) ;; quote chqnged
+      (set-auto! :quotes q))
+    (when-not (= auto-quotes current-auto-quotes) ;; auto-quotes changed
+      (if auto-quotes
+        (start-auto! :quotes)
+        (stop-auto! :quotes)))
+    ;; ensure URI matches our current settings
+    (click-uri uri)))
+
+(defn interpret-query-params
+  ([m]
+   (reduce-kv interpret-query-params {}
+     (merge {:auto-pix :default :auto-quotes :default} m)))
+  ([m k v]
+   (assoc m k
+     (let [new-v
+           (case v
+             "1" true ;; specified as turn-on
+             "0" false ;; specified as turn-off
+             ;; default -- do not change
+             (case k
+               :auto-pix (get-auto-pix)
+               :auto-quotes (get-auto-quotes)
+               ;; default
+               false))]
+       new-v))))
+
+(defroute page-picture-quote-route "/:page/:picture/:quote" {:keys [page picture quote query-params] :as params}
+  (let [{:keys [auto-pix auto-quotes]} (interpret-query-params query-params)]
+    (goto-uri :page page :picture picture :quote quote
+      :auto-pix auto-pix :auto-quotes auto-quotes)))
+
+(defroute page-picture-route "/:page/:picture" {:keys [page picture query-params] :as params}
+  (let [{:keys [auto-pix auto-quotes]} (interpret-query-params query-params)]
+    (goto-uri :page page :picture picture
+      :auto-pix auto-pix :auto-quotes auto-quotes)))
+
+(defroute page-route "/:page" {:keys [page query-params] :as params}
+  (let [{:keys [auto-pix auto-quotes]} (interpret-query-params query-params)]
+    (goto-uri :page page
+      :auto-pix auto-pix :auto-quotes auto-quotes)))
+
+;; Turn on auto-pix and auto-quotes here
+;; HOWEVER if someone starts with a full URL (e.g. a route above) then respect query-params
+(defroute home-route "/" [query-params]
+  (goto-uri :page :home :auto-pix true :auto-quotes true))
+
+(defroute not-found-route "*" []
+  (println "PAGE NOT FOUND")
+  (goto-uri :page :home :auto-pix true :auto-quotes true))
+
+(defn start-secretary []
+  ;; NOTE using the input and iframe arguments prevents History from dynamically
+  ;; writing to the DOM which can cause problems
+  ;; FFI see https://github.com/google/closure-library/blob/master/closure/goog/history/history.js#L189
+  (let [input (gdom/getElement "history-input")
+        iframe (gdom/getElement "history-iframe")
+        h (History. false nil input iframe)]
+    (events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
+    (doto h (.setEnabled true))))
 
 ;; components -----------------------------------------------------
 
@@ -273,16 +382,22 @@
   (reify
     om/IInitState
     (init-state [_]
-      {:is-checked (:checked cursor)})
+      (println "init-state checkbox" opts-id "is" (:checked cursor))
+      {:is-checked (not (not (:checked cursor)))})
     om/IWillMount
     (will-mount [_]
       (let [{:keys [id]} cursor
             id (keyword (or id opts-id))
-            checkbox-events (chan)]
+            checkbox-events (chan)
+            pending (get-in @app-state [:channels id])]
+        (when (vector? pending)
+          (if-not (empty? pending)
+            (om/set-state! owner [:is-checked] (last pending)))
+          (swap! app-state assoc-in [:channels id] nil))
         (sub (get-id-events) id checkbox-events)
         (go-loop []
-          (let [{:keys [id checked]} (<! checkbox-events)]
-            ;; (println "checkbox EVENT" id "checked:" checked)
+          (let [{:keys [id checked]} (<! checkbox-events)
+                checked (not (not checked))]
             (om/set-state! owner [:is-checked] checked)
             (recur)
             ))))
@@ -295,7 +410,6 @@
             checked-now (if (= checked is-checked)
                           checked
                           (do
-                            ;; (println "Fixing mismatch for" id)
                             (om/update! cursor [:checked] is-checked)
                             is-checked))
             basic-attrs {:type :checkbox
@@ -308,7 +422,6 @@
 (defn button-click!
   "button click"
   [callback cursor e]
-  ;; (println "button-click! for:" (:label cursor))
   (if callback (callback cursor))
   (.preventDefault e)
   (.stopPropagation e))
@@ -352,9 +465,7 @@
         (go-loop []
           (let [{:keys [id page prev-page]} (<! root-events)]
             (when on-page
-              ;; (println "clickable EVENT" id "page" page "prev-page" prev-page)
               (on-page cursor page))
-            ;; (om/set-state! owner [:page] page)
             (recur)))))
     om/IDidMount
     (did-mount [_]
@@ -476,7 +587,6 @@
      [:br]
      [:i [:a {:href "http://www.eventbrite.com/e/clojurebridge-mn-fall-2015-tickets-18237438670"} "Sign up now"]]
      " for our fall workshop September 11-12!"
-     ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/11-12 !"
      ]}
    :logos
    {:debug
@@ -517,14 +627,14 @@
                              (get menu-icons page))))
    :goleft (clickable-data
              :style "go.subtle"
-             :on-click #(prev-page!)
+             :on-click #(goto-uri :page -1)
              :on-page (fn [cursor page]
                         (let [new-style (if (contains? no-arrows-pages page)
                                           "go.dark" "go.subtle")]
                           (om/update! cursor [:style] new-style))))
    :goright (clickable-data
               :style "go.subtle"
-              :on-click #(next-page!)
+              :on-click #(goto-uri :page +1)
               :on-page (fn [cursor page]
                          (let [new-style (if (contains? no-arrows-pages page)
                                            "go.dark" "go.subtle")]
@@ -536,7 +646,7 @@
   (clickable-data
     :style "item"
     :label [(get menu-icons page) [:br] [:span.small (name page)]]
-    :on-click #(goto-page! page)))
+    :on-click #(goto-uri :page page)))
 
 (defn elements-data []
   {:e-order [:header :pictures :quotes :home]
@@ -545,33 +655,36 @@
    :quotes (quotes-data)
    :pictures (pictures-data)
    :settings
-   {;; :debug "add note about bookmarks"
-    ;; NOTE some browsers do not support fullscreen
+   {;; NOTE some browsers do not support fullscreen
     :e-order (if (quirks/can-fullscreen?)
                [:b1 :b2 :b3 :fullscreen :commit]
                [:b1 :b2 :b3 :commit])
     :b1 {:e-order [:prevp :autop :nextp]
          :debug "Pictures "
-         :prevp (button-data :label "⇐" :on-click #(prev-auto! :pictures true))
+         :prevp (button-data :label "⇐" :on-click
+                  #(goto-uri :picture -1 :auto-pix false))
          :autop (checkbox-data
                   :label " auto "
-                  :checked true
+                  :checked false
                   :on-change
                   (fn [cursor]
                     (let [{:keys [id checked]} cursor]
-                      (if checked (start-auto! :pictures) (stop-auto! :pictures)))))
-         :nextp (button-data :label "⇒" :on-click #(next-auto! :pictures true))}
+                      (goto-uri :auto-pix checked))))
+         :nextp (button-data :label "⇒" :on-click
+                  #(goto-uri :picture +1 :auto-pix false))}
     :b2 {:e-order [:prevq :autoq :nextq]
          :debug "Quotes "
-         :prevq (button-data :label "⇐" :on-click #(prev-auto! :quotes true))
+         :prevq (button-data :label "⇐" :on-click
+                  #(goto-uri :quote -1 :auto-quotes false))
          :autoq (checkbox-data
                   :label " auto "
-                  :checked true
+                  :checked false
                   :on-change
                   (fn [cursor]
                     (let [{:keys [id checked]} cursor]
-                      (if checked (start-auto! :quotes) (stop-auto! :quotes)))))
-         :nextq (button-data :label "⇒" :on-click #(next-auto! :quotes true))}
+                      (goto-uri :auto-quotes checked))))
+         :nextq (button-data :label "⇒" :on-click
+                  #(goto-uri :quote +1 :auto-quotes false))}
     :b3 {:e-order [:size]
          :size (radio-data :label "Size"
                  :value :medium
@@ -587,8 +700,8 @@
                           :label " fullscreen"
                           :on-change
                           (fn [cursor]
-                            ;; (quirks/toggle-fullscreen!)))}
-                            (quirks/set-fullscreen! (:checked cursor))))}
+                            (quirks/set-fullscreen! (:checked cursor))
+                            (put-event! cursor)))}
     :commit {:style "small.dim"
              :debug ""}
     }
@@ -609,55 +722,35 @@
    {:debug
     [:div "ClojureBridge has been made possible locally through the generous support of our sponsors and individual donors"
      [:ul
-      [:li "September 11-12 2015: Vidku"
-       [:br]
+      [:li "September 11-12 2015: Vidku" [:br]
        [:img {:alt "Vidku"
-              :src "images/sponsors/vidku_400x400.png"
-              }]
-       ]
-      [:li "June 26-27 2015: BridgeFoundry, Clockwork, O'Reilly"
-       [:br]
+              :src "images/sponsors/vidku_400x400.png"}]]
+      [:li "June 26-27 2015: BridgeFoundry, Clockwork, O'Reilly" [:br]
        [:img {:alt "Bridge Foundry"
-              :src "images/clojurebridge.png"
-              }]
+              :src "images/clojurebridge.png"}]
        [:img {:alt "Clockwork"
-              :src "images/sponsors/cw_logo.png"
-              }]
+              :src "images/sponsors/cw_logo.png"}]
        [:img {:alt "O'Reilly"
-              :src "images/sponsors/ORM.jpg"
-              }]
-       ]
-      [:li "March 6-7 2015: UMSEC, Trivent, Adobe, O'Reilly"
-       [:br]
+              :src "images/sponsors/ORM.jpg"}]]
+      [:li "March 6-7 2015: UMSEC, Trivent, Adobe, O'Reilly"  [:br]
        [:img {:alt "UMSEC"
-              :src "images/sponsors/umseclogo.jpg"
-              }]
+              :src "images/sponsors/umseclogo.jpg"}]
        [:img {:alt "Thrivent"
-              :src "images/sponsors/Thrivent.png"
-              }]
+              :src "images/sponsors/Thrivent.png"}]
        [:img {:alt "Adobe"
-              :src "images/sponsors/Adobe.png"
-              }]
+              :src "images/sponsors/Adobe.png"}]
        [:img {:alt "O'Reilly"
-              :src "images/sponsors/ORM.jpg"
-              }]
-       ]
+              :src "images/sponsors/ORM.jpg"}]]
       [:li
-       "May 16-17 2014: DevJam Studios, Code 42, Brick Alloy, Lispcast"
-       [:br]
+       "May 16-17 2014: DevJam Studios, Code 42, Brick Alloy, Lispcast" [:br]
        [:img {:alt "DevJam Studios"
-              :src "images/sponsors/DevJam-Studios.png"
-              }]
+              :src "images/sponsors/DevJam-Studios.png"}]
        [:img {:alt "Code 42"
-              :src "images/sponsors/Code42.png"
-              }]
+              :src "images/sponsors/Code42.png"}]
        [:img {:alt "Brick Alloy"
-              :src "images/sponsors/BrickAlloy.png"
-              }]
+              :src "images/sponsors/BrickAlloy.png"}]
        [:img {:alt "Lispcast"
-              :src "images/sponsors/Lispcast.png"
-              }]
-       ]
+              :src "images/sponsors/Lispcast.png"}]]
       ]
      ]
     }
@@ -719,7 +812,7 @@
      ]
     }
    :pix+quotes
-   {;; :debug "TBD just blank page for quotes"
+   {;; :debug "blank page to view pictures and quotes"
     }
    :links
    {:debug
@@ -746,14 +839,10 @@
   (reify
     om/IWillMount
     (will-mount [_]
-      (go (let [response (<! (http/get "https://api.github.com/users" {:with-credentials? false}))]
-      (prn (:status response))
-      (prn (map :login (:body response)))))
       (let [root-events (chan)]
         (sub (get-id-events) :root root-events)
         (go-loop []
           (let [{:keys [id page prev-page]} (<! root-events)]
-            ;; (println "app EVENT" id "page" page "prev-page" prev-page)
             (om/transact! cursor [:elements]
               #(-> %
                  (assoc-in [:header :prev-page] prev-page)
@@ -784,20 +873,31 @@
 (defn initialize
   "Called to initialize the app when the DOM is ready or to re-initialize during development"
   []
-  (let [prev-size (get-in @app-state [:style])
+  (let [first-initialization? (nil? @app-state)
+        prev-size (get-in @app-state [:style])
+        prev-base-url (or (get-in @app-state [:base-url]) (make-url))
         events (chan)
         buf-fn (fn [id]
                  (case id
-                   :root (dropping-buffer 4)
-                   (sliding-buffer 3)))
-        id-events (pub events :id buf-fn)]
+                   :root (buffer 6)
+                   (buffer 4)))
+        id-events (pub events :id buf-fn)
+        prev-pg (get-in @app-state [:elements :header :page])
+        prev-picture (str "picture-" (get-auto :pictures))
+        prev-quote (str "quote-" (get-auto :quotes))
+        prev-auto-pix (get-auto-pix)
+        prev-auto-quotes (get-auto-quotes)]
     (println "program-mode:" program-mode)
     (println "user-agent:" quirks/user-agent)
     (stop-auto! :pictures)
     (stop-auto! :quotes)
     (reset! app-state
       {:e-order []
-       :channels {:events events :id-events id-events}})
+       :channels {:events events
+                  :id-events id-events
+                  :autop [] ;; hack to handle put-event! before checkbox mounted
+                  :autoq []}
+       :base-url prev-base-url})
     (reset! e-types nil)
     (add-e-type! :element element)
     (add-e-type! :quotes quotes)
@@ -808,24 +908,26 @@
     (add-e-type! :clickable clickable)
     (add-e! [:elements] (elements-data))
     (om/root app app-state {:target (gdom/getElement "app")})
-    (start-auto! :pictures)
-    (start-auto! :quotes)
+    ;; NOTE no longer starting auto here.. see defroute "/" above
+    ;; (start-auto! :pictures)
+    ;; (start-auto! :quotes)
     (set-size! (or prev-size :medium))
-    (quirks/initialize-swipe next-page! prev-page!)
+    (quirks/initialize-swipe #(goto-uri :page +1) #(goto-uri :page -1))
     ;; ask the server for last commit info, then update the settings page
     (server/info-commit
       #(swap! app-state (fn [a]
                           (assoc-in a [:elements :settings :commit :debug]
                             [:span [:i "website last updated by "]
-                                   %1 [:i " at "] %2]))))
+                             %1 [:i " at "] %2]))))
+    (if first-initialization?
+      (start-secretary)
+      (goto-uri :page prev-pg :picture prev-picture :quotes prev-quote
+        :auto-pix prev-auto-pix :auto-quotes prev-auto-quotes))
     ))
 
-;; Normally we'll call initialize as soon as the JavaScript
-;; window.onload function fires... For testing with PhantomJS however
-;; we'll call initialize from testing/runner.cljs
 (if-not quirks/phantomjs?
   (set! (.-onload js/window) initialize))
 
-;; If we are in :dev mode we will re-initialize automatically on reload
-(when (and (development?) (gdom/getElement "app"))
+(defn figwheel-reload []
+  (println "Figwheel reload...")
   (initialize))
