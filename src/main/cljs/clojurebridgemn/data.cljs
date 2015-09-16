@@ -77,8 +77,9 @@
     :source :student}
    {:quote "Diversity is important to me."
     :source :student}
-   {:quote "Computer science to me is very creative - very expressive and that requires
-a lot of different experiences and viewpoints."
+   {:quote "Computer science to me is very creative - very expressive and that requires a lot of different experiences and viewpoints."
+    :source :student}
+   {:quote " This is so cool I just don't want to stop [for lunch]!"
     :source :student}
    ])
 
@@ -114,6 +115,13 @@ a lot of different experiences and viewpoints."
    "cbmn-summer-2015-097.jpg"
    "cbmn-summer-2015-111.jpg"
    "cbmn-summer-2015-126.jpg"
+   "cbmn-fall-2015-001.jpg"
+   "cbmn-fall-2015-002.jpg"
+   "cbmn-fall-2015-003.jpg"
+   "cbmn-fall-2015-004.jpg"
+   "cbmn-fall-2015-005.jpg"
+   "cbmn-fall-2015-006.jpg"
+   "cbmn-fall-2015-007.jpg"
    ])
 
 (defonce pictures-total (count pictures))

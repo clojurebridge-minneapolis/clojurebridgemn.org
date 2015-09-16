@@ -18,7 +18,7 @@ html {
     font-size: 14px; /* 16 */
     font-weight: 600;
     font-family: Helvetica, Verdana, Arial, sans-serif;
-    background: url(../images/stone-arch-dim.jpg) center / 100% auto scroll repeat-y;
+    background: url(../images/stone-arch-dark.jpg) center / 100% auto scroll repeat-y;
     color: white;
 }
 
@@ -27,7 +27,7 @@ body {
     padding: 0px;
     width: 100%;
     height: 100%;
-    text-shadow: 0.12em 0.12em 0.06em black, 0 0.12em 0.06em black, -0.12em 0.12em 0.06em black, 0.12em 0 0.06em black, -0.12em 0 0.06em black, 0.12em -0.12em 0.06em black, 0 -0.12em 0.06em black, -0.12em -0.12em 0.06em black;
+    text-shadow: 0.09em 0.09em 0.06em black, 0 0.09em 0.06em black, -0.09em 0.09em 0.06em black, 0.09em 0 0.06em black, -0.09em 0 0.06em black, 0.09em -0.09em 0.06em black, 0 -0.09em 0.06em black, -0.09em -0.09em 0.06em black;
 }
 
 #figwheel-heads-up-content-area {
@@ -45,6 +45,7 @@ h1, h2, h3, h4, h5, h6 {
 
 a {
     color: skyblue;
+    text-decoration: none;
 }
 
 a:hover
@@ -123,6 +124,29 @@ img {
     height: 3em;
     width: auto;
     background: white;
+}
+
+#board div div {
+    position: static;
+    height: 6em;
+    margin: 1em 1em 1em 2.5em;
+    width: 82%;
+}
+
+#board img {
+    margin: 0em 1.5em 0.5em 0em; /* t r b l */
+    height: 5em;
+    width: 5em;
+    background: transparent;
+    float: left;
+}
+
+#board div div div {
+    margin: 0em 0em 1em 0em; /* t r b l */
+    height: auto;
+    font-size: 0.8em;
+    margin: 0em 0em 1.5em 0em;
+    float: left;
 }
 
 #home img {
@@ -255,6 +279,10 @@ img {
 
 .clear {
    clear: both;
+   height: 1px;
+   width: 1px;
+   margin: 0px;
+   padding: 0px;
 }
 
 .dark {
@@ -472,6 +500,34 @@ img {
 
 .pictures28 {
     background-image: url(../images/pictures/cbmn-summer-2015-126.jpg);
+}
+
+.pictures29 {
+    background-image: url(../images/pictures/cbmn-fall-2015-001.jpg);
+}
+
+.pictures30 {
+    background-image: url(../images/pictures/cbmn-fall-2015-002.jpg);
+}
+
+.pictures31 {
+    background-image: url(../images/pictures/cbmn-fall-2015-003.jpg);
+}
+
+.pictures32 {
+    background-image: url(../images/pictures/cbmn-fall-2015-004.jpg);
+}
+
+.pictures33 {
+    background-image: url(../images/pictures/cbmn-fall-2015-005.jpg);
+}
+
+.pictures34 {
+    background-image: url(../images/pictures/cbmn-fall-2015-006.jpg);
+}
+
+.pictures35 {
+    background-image: url(../images/pictures/cbmn-fall-2015-007.jpg);
 }
 
 /* responsive heuristics */

@@ -38,6 +38,7 @@
    :blog "✍"
    :calendar "▦"
    :links "λ"
+   :board "π"
    :settings "⇄"
    :pix+quotes "☙"})
 
@@ -585,9 +586,11 @@
     [:div.small.center "Free, beginner-friendly Clojure programming workshops for women"
      [:br]
      [:br]
-     [:i [:a {:href "http://www.eventbrite.com/e/clojurebridge-mn-fall-2015-tickets-18237438670"} "Sign up now"]]
-     " for our fall workshop September 11-12!"
-     ]}
+     ;; [:i [:a {:href "http://www.eventbrite.com/e/clojurebridge-mn-fall-2015-tickets-18237438670"} "Sign up now"]]
+     ;; " for our fall workshop September 11-12!"
+     "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
+     ]
+    }
    :logos
    {:debug
     [:div
@@ -706,15 +709,16 @@
              :debug ""}
     }
    :menu
-   {:e-order [:m1 :m2 :m3 :m4 :m5 :m6 :m7 :m8 :clear]
+   {:e-order [:m1 :m2 :m3 :m4 :m5 :m6 :m7 :m8 :m9 :clear]
     :m1 (menu-item :home)
     :m2 (menu-item :sponsors)
     :m3 (menu-item :donations)
     :m4 (menu-item :blog)
     :m5 (menu-item :calendar)
     :m6 (menu-item :links)
-    :m7 (menu-item :settings)
-    :m8 (menu-item :pix+quotes)
+    :m7 (menu-item :board)
+    :m8 (menu-item :settings)
+    :m9 (menu-item :pix+quotes)
     :clear {:style "clear"}
     }
    :home (home-data)
@@ -787,9 +791,10 @@
    {:debug
     [:div
      [:br]
-     "Stay tuned for more information about our upcoming workshop at "
-     [:a {:href "http://vidku.com"} "Vidku"]
-     " on September 11-12!"
+     "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
+     ;; "Stay tuned for more information about our upcoming workshop at "
+     ;; [:a {:href "http://vidku.com"} "Vidku"]
+     ;; " on September 11-12!"
      [:br]
      [:br]
      "Want to connect with the local Clojure community?"
@@ -797,10 +802,9 @@
      [:br]
      "Join us for our next "
      [:a {:href "http://clojure.mn/"} "clojure.mn"]
-     " meeting on September 9th!"
+     " meeting on October 14th!"
      [:br]
      [:br]
-     ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 9/11-12"
      ]
     }
    :calendar
@@ -833,6 +837,31 @@
       [:li "Our " [:a {:href "https://github.com/clojurebridge-minneapolis/track2-functional"} "Track 2"] " guide"]
       ]]
     }
+   :board
+   {:debug
+    [:div
+     [:br]
+     "Meet the ClojureBridgeMN Board"
+     [:br]
+     [:br]
+     [:div [:img {:alt "Annie" :src "images/board/annie.png"}]
+      [:div "Annie Engmark is new to coding -- Clojure is her first exposure to all things code. She enjoys working with passionate and progressive individuals and has found ClojureBridge is a great place to facilitate just that. When she's not racking her brain to learn code, she is most likely to be found spending time with her friends and family, exploring Minneapolis' nature scene, or running around completing random projects she started months before."]]
+     [:div [:img {:alt "Antoinette" :src "images/board/antoinette.jpg"}]
+      [:div "Antoinette Smith is a fan of concise, yet understandable technical documentation and also, equality for all people. Antoinette is also most likely to send you an e-mail about ClojureBridge. She posts on Twitter as "
+      [:a {:href "http://twitter.com/ant_auth"} "@ant_auth"]
+       ", all opinions are hers."]]
+     [:div [:img {:alt "Chris" :src "images/board/chris.jpg"}]
+      [:div "Chris Koehnen is an old lisp enthusiast.  He likes programming and coding and writing software, despite being a professional developer."]]
+     [:div [:img {:alt "Millie" :src "images/board/millie.jpg"}]
+      [:div "Millicent Walsh is a programming artist or an artistic programer depending on the day. She also enjoys human and computer languages, travel, Spain, international news, dancing, yoga, tango, flamenco, gardening, cooking, wine, food, organizing people, and making ideas reality. She is a ClojureBridge logistics guru, frequent track two student, and networker extraordinaire. She sometimes tweets at "
+       [:a {:href "http://twitter.com/mh_walsh"} "@mh_walsh"] " ."]]
+     [:div [:img {:alt "Nicky" :src "images/board/nicky.jpg"}]
+      [:div "Nicky Stein-Grohs had previously forgotten how to code but is now learning Clojure and is enjoying being on the board of such a welcoming organization. She loves technology, people, food, and tiny dogs. She participates in various types of dance, aerial arts, and yoga. When she’s feeling sassy she tweets over at "
+      [:a {:href "http://twitter.com/formica_dinette"} "@formica_dinette"]
+       " ."]]
+     [:div [:img {:alt "Tom" :src "images/board/tmarble.jpg"}]
+      [:div "Tom Marble is passionate about Free/Libre Open Source Software, FLOSS legal issues and increasing diversity. He enjoys being a hardware and software maker. Often tweets cryptic geek things at "
+       [:a {:href "http://twitter.com/tmarble"} "@tmarble"] " ."]]]}
    })
 
 (defn app [cursor owner]
