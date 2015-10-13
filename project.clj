@@ -1,15 +1,15 @@
-(defproject clojurebridgemn "0.3.0"
+(defproject clojurebridgemn "0.3.1"
   :description "ClojureScriptMN.org website"
   :url "https://github.com/clojurebridge-minneapolis/clojurebridgemn.org"
   :license {:name "MIT"
             :url "http://opensource.org/licenses/MIT"}
 
   :dependencies [[org.clojure/clojure "1.7.0"]
-                 [org.clojure/clojurescript "1.7.122"]
+                 [org.clojure/clojurescript "1.7.145"]
                  [org.codehaus.plexus/plexus-utils "3.0.22"] ;; for figwheel
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [potemkin "0.4.1"]
-                 [aleph "0.4.1-alpha2" :exclusions [clj-tuple]]
+                 [aleph "0.4.1-alpha3" :exclusions [clj-tuple]]
                  [ring "1.4.0"]
                  [ring/ring-defaults "0.1.5"]
                  [amalloy/ring-gzip-middleware "0.1.3"]
@@ -17,18 +17,18 @@
                  [compojure "1.4.0"]
                  [enlive "1.1.6"]
                  [cheshire "5.5.0"]
-                 [environ "1.0.0"]
+                 [environ "1.0.1"]
                  ;; cljs
                  [org.omcljs/om "0.9.0"]
                  [sablono "0.3.6"]
                  [secretary "1.2.3"]
                  [cljs-http "0.1.37"]]
 
-  :plugins [[lein-cljsbuild "1.0.6"]
-            [lein-figwheel "0.3.9-SNAPSHOT"
+  :plugins [[lein-cljsbuild "1.1.0"]
+            [lein-figwheel "0.4.1"
              :exclusions [org.clojure/clojure
                           org.codehaus.plexus/plexus-utils]]
-            [lein-environ "1.0.0"]]
+            [lein-environ "1.0.1"]]
 
   :hooks [leiningen.cljsbuild]
 
