@@ -726,6 +726,11 @@
    {:debug
     [:div "ClojureBridge has been made possible locally through the generous support of our sponsors and individual donors"
      [:ul
+      [:li "November 13-14 2015: Vidku, Harbinger Partners" [:br]
+       [:img {:alt "Vidku"
+              :src "images/sponsors/vidku_400x400.png"}]
+       [:img {:alt "Harbinger Partners"
+              :src "images/sponsors/HP.png"}]]
       [:li "September 11-12 2015: Vidku" [:br]
        [:img {:alt "Vidku"
               :src "images/sponsors/vidku_400x400.png"}]]
