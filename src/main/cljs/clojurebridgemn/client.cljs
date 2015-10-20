@@ -586,9 +586,9 @@
     [:div.small.center "Free, beginner-friendly Clojure programming workshops for women"
      [:br]
      [:br]
-     ;; [:i [:a {:href "http://www.eventbrite.com/e/clojurebridge-mn-fall-2015-tickets-18237438670"} "Sign up now"]]
-     ;; " for our fall workshop September 11-12!"
-     "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
+     [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
+      " for our Fall/Winter workshop November 13-14!"
+     ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
      ]
     }
    :logos
@@ -796,7 +796,9 @@
    {:debug
     [:div
      [:br]
-     "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
+     [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
+      " for our Fall/Winter workshop November 13-14!"
+     ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
      ;; "Stay tuned for more information about our upcoming workshop at "
      ;; [:a {:href "http://vidku.com"} "Vidku"]
      ;; " on September 11-12!"
@@ -807,7 +809,7 @@
      [:br]
      "Join us for our next "
      [:a {:href "http://clojure.mn/"} "clojure.mn"]
-     " meeting on October 14th!"
+     " meeting on November 11th!"
      [:br]
      [:br]
      ]
