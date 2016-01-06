@@ -34,7 +34,7 @@
     :source :student}
    {:quote "I am a linguist and like knowing how languages work."
     :source :student}
-   {:quote "My husband is learning coding and I wanted to learn it top!"
+   {:quote "My husband is learning coding and I wanted to learn it too!"
     :source :student}
    {:quote "I have no idea what I'm doing and that's why I am here!"
     :source :student}

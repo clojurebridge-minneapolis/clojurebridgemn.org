@@ -108,7 +108,7 @@
           :cljsbuild
           {:builds
            {:app
-            {:source-paths ["src/main/cljs" "src/prod/cljs"]
+            {:source-paths ["src/main/cljs"]
              :compiler {:main clojurebridgemn.client
                         :closure-defines {"clojurebridgemn.utils.program_mode" "prod"}
                         :output-dir "resources/public/js/compiled"
