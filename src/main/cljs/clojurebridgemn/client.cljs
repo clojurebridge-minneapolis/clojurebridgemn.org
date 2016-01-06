@@ -586,9 +586,10 @@
     [:div.small.center "Free, beginner-friendly Clojure programming workshops for women"
      [:br]
      [:br]
-     [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
-      " for our Fall/Winter workshop November 13-14!"
+     ;; [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
+     ;;  " for our Fall/Winter workshop November 13-14!"
      ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
+     "Stay tuned for our next ClojureBridgeMN workshop (TBD)"
      ]
     }
    :logos
@@ -601,14 +602,14 @@
 
 (defn quotes-data []
   {:e-type :quotes
-   :delay 10
+   :delay 19
    :n data/quotes-total
    :i (rand-int data/quotes-total)
    :checkbox :autoq})
 
 (defn pictures-data []
   {:e-type :pictures
-   :delay 25
+   :delay 29
    :n data/pictures-total
    :i (rand-int data/pictures-total)
    :checkbox :autop})
@@ -796,20 +797,21 @@
    {:debug
     [:div
      [:br]
-     [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
-      " for our Fall/Winter workshop November 13-14!"
+     ;; [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
+     ;;  " for our Fall/Winter workshop November 13-14!"
      ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
      ;; "Stay tuned for more information about our upcoming workshop at "
      ;; [:a {:href "http://vidku.com"} "Vidku"]
      ;; " on September 11-12!"
+     "Stay tuned for our next ClojureBridgeMN workshop (TBD)"
      [:br]
      [:br]
      "Want to connect with the local Clojure community?"
      [:br]
      [:br]
      "Join us for our next "
-     [:a {:href "http://clojure.mn/"} "clojure.mn"]
-     " meeting on November 11th!"
+     [:a {:href "http://www.meetup.com/clojuremn/"} "clojure.mn"]
+     " meeting on February 10th!"
      [:br]
      [:br]
      ]

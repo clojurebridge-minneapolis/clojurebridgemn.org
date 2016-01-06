@@ -1,33 +1,37 @@
-(defproject clojurebridgemn "0.3.1"
+(defproject clojurebridgemn "0.3.2"
   :description "ClojureScriptMN.org website"
   :url "https://github.com/clojurebridge-minneapolis/clojurebridgemn.org"
   :license {:name "MIT"
             :url "http://opensource.org/licenses/MIT"}
 
-  :dependencies [[org.clojure/clojure "1.7.0"]
-                 [org.clojure/clojurescript "1.7.145"]
-                 [org.codehaus.plexus/plexus-utils "3.0.22"] ;; for figwheel
-                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]
-                 [potemkin "0.4.1"]
+  :dependencies [[org.clojure/clojure "1.8.0-RC4" :scope "provided"]
+                 [org.clojure/clojurescript "1.7.189" :scope "provided"]
+                 [org.clojure/core.async "0.2.374"]
+                 [potemkin "0.4.3"]
                  [aleph "0.4.1-alpha3" :exclusions [clj-tuple]]
                  [ring "1.4.0"]
                  [ring/ring-defaults "0.1.5"]
                  [amalloy/ring-gzip-middleware "0.1.3"]
-                 [commons-codec "1.10"]
                  [compojure "1.4.0"]
                  [enlive "1.1.6"]
                  [cheshire "5.5.0"]
                  [environ "1.0.1"]
                  ;; cljs
-                 [org.omcljs/om "0.9.0"]
-                 [sablono "0.3.6"]
+                 [cljsjs/react-dom-server "0.14.3-0"] ;; for sablono
+                 [org.omcljs/om "1.0.0-alpha28"]
+                 [sablono "0.5.3"]
                  [secretary "1.2.3"]
-                 [cljs-http "0.1.37"]]
+                 [cljs-http "0.1.39"]
+                 ;; the following are to resolve dependency conflicts
+                 [org.clojure/tools.reader "1.0.0-alpha3"] ;; figwheel
+                 [commons-codec "1.10"] ;; compojure
+                 [org.apache.httpcomponents/httpcore "4.4.3"]] ;; clj-webdriver
 
-  :plugins [[lein-cljsbuild "1.1.0"]
-            [lein-figwheel "0.4.1"
+  :plugins [[lein-cljsbuild "1.1.2" :exclusions [org.clojure/clojure]]
+            [lein-figwheel "0.5.0-2"
              :exclusions [org.clojure/clojure
-                          org.codehaus.plexus/plexus-utils]]
+                          org.clojure/tools.reader
+                          ring/ring-core]]
             [lein-environ "1.0.1"]]
 
   :hooks [leiningen.cljsbuild]
@@ -55,8 +59,10 @@
 
   :profiles
   {:dev {:env {:program-mode :dev}
-         :dependencies [[net.info9/clj-webdriver "0.7.5"
-                         :exclusions [commons-codec]]]
+         :dependencies [[org.seleniumhq.selenium/selenium-java "2.48.2"
+                         :exclusions [org.eclipse.jetty/jetty-io
+                                      org.eclipse.jetty/jetty-util]]
+                        [clj-webdriver "0.7.2"]]
          :test-paths ["src/test/clj"]
          :cljsbuild
          {:builds
