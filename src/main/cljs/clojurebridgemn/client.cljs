@@ -589,7 +589,7 @@
      ;; [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
      ;;  " for our Fall/Winter workshop November 13-14!"
      ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
-     "Stay tuned for our next ClojureBridgeMN workshop (TBD)"
+     "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for June 25-26)"
      ]
     }
    :logos
@@ -740,8 +740,9 @@
               :src "images/clojurebridge.png"}]
        [:img {:alt "Clockwork"
               :src "images/sponsors/cw_logo.png"}]
-       [:img {:alt "O'Reilly"
-              :src "images/sponsors/ORM.jpg"}]]
+       [:a {:href "http://www.oreilly.com/pub/cpc/9557"}
+        [:img {:alt "O'Reilly"
+               :src "http://www.oreilly.com/partner_file/ORM_logo_box75_hex.jpg"}]]]
       [:li "March 6-7 2015: UMSEC, Trivent, Adobe, O'Reilly"  [:br]
        [:img {:alt "UMSEC"
               :src "images/sponsors/umseclogo.jpg"}]
@@ -749,8 +750,9 @@
               :src "images/sponsors/Thrivent.png"}]
        [:img {:alt "Adobe"
               :src "images/sponsors/Adobe.png"}]
-       [:img {:alt "O'Reilly"
-              :src "images/sponsors/ORM.jpg"}]]
+       [:a {:href "http://www.oreilly.com/pub/cpc/9557"}
+        [:img {:alt "O'Reilly"
+               :src "http://www.oreilly.com/partner_file/ORM_logo_box75_hex.jpg"}]]]
       [:li
        "May 16-17 2014: DevJam Studios, Code 42, Brick Alloy, Lispcast" [:br]
        [:img {:alt "DevJam Studios"
@@ -803,7 +805,7 @@
      ;; "Stay tuned for more information about our upcoming workshop at "
      ;; [:a {:href "http://vidku.com"} "Vidku"]
      ;; " on September 11-12!"
-     "Stay tuned for our next ClojureBridgeMN workshop (TBD)"
+     "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for June 25-26)"
      [:br]
      [:br]
      "Want to connect with the local Clojure community?"
@@ -811,7 +813,7 @@
      [:br]
      "Join us for our next "
      [:a {:href "http://www.meetup.com/clojuremn/"} "clojure.mn"]
-     " meeting on February 10th!"
+     " meeting on April 13th!"
      [:br]
      [:br]
      ]
@@ -837,7 +839,7 @@
      [:ul
       [:li "Global " [:a {:href "http://clojurebridge.org"} "ClojureBridge"] " organization"]
       [:li "Contact us at info@ClojureBridgeMN.org"]
-      [:li "Local " [:a {:href "http://clojure.mn"} "clojure.mn"] " user group (meets every 2nd Wednesday)"]
+      [:li "Local " [:a {:href "http://www.meetup.com/clojuremn/"} "clojure.mn"] " user group (meets every 2nd Wednesday)"]
       [:li "ClojureBridge "
        [:a {:href "http://bit.ly/cb-mn"} "installfest"] " and "
        [:a {:href "https://github.com/ClojureBridge/getting-started/blob/master/nightcode.md"} "Nightcode"]
