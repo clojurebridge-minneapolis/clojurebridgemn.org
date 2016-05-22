@@ -589,7 +589,7 @@
      ;; [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
      ;;  " for our Fall/Winter workshop November 13-14!"
      ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
-     "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for June 25-26)"
+     "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for November 4-5)"
      ]
     }
    :logos
@@ -805,7 +805,7 @@
      ;; "Stay tuned for more information about our upcoming workshop at "
      ;; [:a {:href "http://vidku.com"} "Vidku"]
      ;; " on September 11-12!"
-     "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for June 25-26)"
+     "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for November 4-5)"
      [:br]
      [:br]
      "Want to connect with the local Clojure community?"
