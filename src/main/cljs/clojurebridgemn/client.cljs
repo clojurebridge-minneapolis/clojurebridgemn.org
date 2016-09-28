@@ -1,4 +1,4 @@
-;; ClojureBridgeMN.org
+St;; ClojureBridgeMN.org
 ;; Copyright © 2015 Tom Marble
 ;; Licensed under the MIT license
 ;; https://github.com/clojurebridge-minneapolis/clojurebridgemn.org
@@ -589,7 +589,13 @@
      ;; [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
      ;;  " for our Fall/Winter workshop November 13-14!"
      ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
-     "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for November 4-5)"
+     ;; "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for November 4-5)"
+     "Our next ClojureBridgeMN workshop is scheduled for 11/4-5"
+     [:br]
+     [:br]
+     "Check back here for news on when the "
+     [:a {:href "http://clojurebridgemn-2016.eventbrite.com"} "Eventbrite"]
+     " opens in October"
      ]
     }
    :logos
@@ -727,6 +733,12 @@
    {:debug
     [:div "ClojureBridge has been made possible locally through the generous support of our sponsors and individual donors"
      [:ul
+      [:li
+       "November 4-5, 2016: Object Partners, PurelyFunctional.tv" [:br]
+       [:img {:alt "Object Partners"
+              :src "images/sponsors/ObjectPartners_400x400.png"}]
+       [:img {:alt "PurelyFunctional.tv"
+              :src "images/sponsors/Lispcast.png"}]]
       [:li "November 13-14 2015: Vidku, Harbinger Partners" [:br]
        [:img {:alt "Vidku"
               :src "images/sponsors/vidku_400x400.png"}]
@@ -801,11 +813,11 @@
      [:br]
      ;; [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
      ;;  " for our Fall/Winter workshop November 13-14!"
-     ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
+     "Our next ClojureBridgeMN workshop is scheduled for 11/4-5"
      ;; "Stay tuned for more information about our upcoming workshop at "
      ;; [:a {:href "http://vidku.com"} "Vidku"]
      ;; " on September 11-12!"
-     "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for November 4-5)"
+     ;; "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for November 4-5)"
      [:br]
      [:br]
      "Want to connect with the local Clojure community?"
@@ -813,7 +825,7 @@
      [:br]
      "Join us for our next "
      [:a {:href "http://www.meetup.com/clojuremn/"} "clojure.mn"]
-     " meeting on April 13th!"
+     " meeting on October 12th!"
      [:br]
      [:br]
      ]
