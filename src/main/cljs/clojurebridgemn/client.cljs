@@ -1,4 +1,4 @@
-St;; ClojureBridgeMN.org
+;; ClojureBridgeMN.org
 ;; Copyright © 2015 Tom Marble
 ;; Licensed under the MIT license
 ;; https://github.com/clojurebridge-minneapolis/clojurebridgemn.org
