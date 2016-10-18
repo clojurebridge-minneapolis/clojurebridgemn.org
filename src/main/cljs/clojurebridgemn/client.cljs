@@ -593,9 +593,9 @@
      "Our next ClojureBridgeMN workshop is scheduled for 11/4-5"
      [:br]
      [:br]
-     "Check back here for news on when the "
+     "Sign up NOW on "
      [:a {:href "http://clojurebridgemn-2016.eventbrite.com"} "Eventbrite"]
-     " opens in October"
+     " !"
      ]
     }
    :logos
@@ -744,17 +744,32 @@
        [:a {:href "http://tech.puredanger.com"} "Alex Miller"]
        ", "
        [:a {:href "https://lambdaisland.com"} "Lambda Island"]
+       ", "
+       [:a {:href "http://cognitect.com"} "Cognitect"]
+       ", "
+       [:a {:href "https://gitlab.com"} "GitLab"]
        [:br]
-       [:img {:alt "Object Partners"
-              :src "images/sponsors/ObjectPartners_400x400.png"}]
-       [:img {:alt "PurelyFunctional.tv"
-              :src "images/sponsors/Lispcast.png"}]
-       [:img {:alt "World Singles"
-              :src "images/sponsors/world-singles.svg"}]
-       [:img {:alt "Alex Miller"
-              :src "images/sponsors/puredanger.jpg"}]
-       [:img {:alt "Lambda Island"
-              :src "images/sponsors/lambdaisland.png"}]]
+       [:a {:href "https://objectpartners.com/"}
+        [:img {:alt "Object Partners"
+               :src "images/sponsors/ObjectPartners_400x400.png"}]]
+       [:a {:href "https://purelyfunctional.tv/"}
+        [:img {:alt "PurelyFunctional.tv"
+               :src "images/sponsors/Lispcast.png"}]]
+       [:a {:href "http://worldsingles.com/"}
+        [:img {:alt "World Singles"
+               :src "images/sponsors/world-singles.svg"}]]
+       [:a {:href "http://tech.puredanger.com"}
+        [:img {:alt "Alex Miller"
+               :src "images/sponsors/puredanger.jpg"}]]
+       [:a {:href "https://lambdaisland.com"}
+        [:img {:alt "Lambda Island"
+               :src "images/sponsors/lambdaisland.png"}]]
+       [:a {:href "http://cognitect.com"}
+        [:img {:alt "Cognitect"
+               :src "images/sponsors/cognitect.jpg"}]]
+       [:a {:href "https://gitlab.com"}
+        [:img {:alt "GitLab"
+               :src "images/sponsors/gitlab.png"}]]]
       [:li "November 13-14 2015: Vidku, Harbinger Partners" [:br]
        [:img {:alt "Vidku"
               :src "images/sponsors/vidku_400x400.png"}]
