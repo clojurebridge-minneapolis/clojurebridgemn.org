@@ -590,7 +590,7 @@
      ;;  " for our Fall/Winter workshop November 13-14!"
      ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
      ;; "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for November 4-5)"
-     "Our next ClojureBridgeMN workshop is coming soon on Nov 4 &amp; 5 !!!"
+     "Our next ClojureBridgeMN workshop is coming soon on Nov 4 & 5 !!!"
      [:br]
      [:br]
      "Sign up NOW on "
