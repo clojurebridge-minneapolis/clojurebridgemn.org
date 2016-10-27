@@ -845,6 +845,10 @@
      ;; [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
      ;;  " for our Fall/Winter workshop November 13-14!"
      "Our next ClojureBridgeMN workshop is scheduled for 11/4-5"
+     [:br]
+     "Sign up NOW on "
+     [:a {:href "http://clojurebridgemn-2016.eventbrite.com"} "Eventbrite"]
+     " !"
      ;; "Stay tuned for more information about our upcoming workshop at "
      ;; [:a {:href "http://vidku.com"} "Vidku"]
      ;; " on September 11-12!"
@@ -856,7 +860,7 @@
      [:br]
      "Join us for our next "
      [:a {:href "http://www.meetup.com/clojuremn/"} "clojure.mn"]
-     " meeting on October 12th!"
+     " meeting on November 9th!"
      [:br]
      [:br]
      ]
@@ -883,13 +887,9 @@
       [:li "Global " [:a {:href "http://clojurebridge.org"} "ClojureBridge"] " organization"]
       [:li "Contact us at info@ClojureBridgeMN.org"]
       [:li "Local " [:a {:href "http://www.meetup.com/clojuremn/"} "clojure.mn"] " user group (meets every 2nd Wednesday)"]
-      [:li "ClojureBridge "
-       [:a {:href "http://bit.ly/cb-mn"} "installfest"] " and "
-       [:a {:href "https://github.com/ClojureBridge/getting-started/blob/master/nightcode.md"} "Nightcode"]
-       " guides"]
-      [:li "Our " [:a {:href "https://github.com/clojurebridge-minneapolis/track1-chatter"} "Track 1"] " guide"]
-      [:li "Our " [:a {:href "https://github.com/clojurebridge-minneapolis/track2-functional"} "Track 2"] " guide"]
-      ]]
+      [:li "ClojureBridgeMN "
+       [:a {:href "http://bit.ly/cb-mn"} "Documentation"]]
+       ]]
     }
    :board
    {:debug
