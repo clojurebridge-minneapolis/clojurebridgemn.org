@@ -387,87 +387,87 @@ img {
 }
 
 .pictures0 {
-    background-image: url(../images/pictures/clojurebridge-13.jpg);
-}
-
-.pictures1 {
     background-image: url(../images/pictures/clojurebridge-1.jpg);
 }
 
-.pictures2 {
+.pictures1 {
     background-image: url(../images/pictures/clojurebridge-2.jpg);
 }
 
-.pictures3 {
+.pictures2 {
     background-image: url(../images/pictures/clojurebridge-3.jpg);
 }
 
-.pictures4 {
+.pictures3 {
     background-image: url(../images/pictures/clojurebridge-4.jpg);
 }
 
-.pictures5 {
+.pictures4 {
     background-image: url(../images/pictures/clojurebridge-5.jpg);
 }
 
-.pictures6 {
+.pictures5 {
     background-image: url(../images/pictures/clojurebridge-6.jpg);
 }
 
-.pictures7 {
+.pictures6 {
     background-image: url(../images/pictures/clojurebridge-7.jpg);
 }
 
-.pictures8 {
+.pictures7 {
     background-image: url(../images/pictures/clojurebridge-8.jpg);
 }
 
-.pictures9 {
+.pictures8 {
     background-image: url(../images/pictures/clojurebridge-9.jpg);
 }
 
-.pictures10 {
+.pictures9 {
     background-image: url(../images/pictures/clojurebridge-10.jpg);
 }
 
-.pictures11 {
+.pictures10 {
     background-image: url(../images/pictures/clojurebridge-11.jpg);
 }
 
-.pictures12 {
+.pictures11 {
     background-image: url(../images/pictures/clojurebridge-12.jpg);
 }
 
-.pictures13 {
-    background-image: url(../images/pictures/cbmn-summer-2015-097.jpg);
+.pictures12 {
+    background-image: url(../images/pictures/clojurebridge-13.jpg);
 }
 
-.pictures14 {
+.pictures13 {
     background-image: url(../images/pictures/cbmn-summer-2015-017.jpg);
 }
 
-.pictures15 {
+.pictures14 {
     background-image: url(../images/pictures/cbmn-summer-2015-042.jpg);
 }
 
-.pictures16 {
-    background-image: url(../images/pictures/cbmn-summer-2015-084.jpg);
-}
-
-.pictures17 {
+.pictures15 {
     background-image: url(../images/pictures/cbmn-summer-2015-043.jpg);
 }
 
-.pictures18 {
+.pictures16 {
     background-image: url(../images/pictures/cbmn-summer-2015-051.jpg);
 }
 
-.pictures19 {
+.pictures17 {
+    background-image: url(../images/pictures/cbmn-summer-2015-062.jpg);
+}
+
+.pictures18 {
     background-image: url(../images/pictures/cbmn-summer-2015-068.jpg);
 }
 
-.pictures20 {
+.pictures19 {
     background-image: url(../images/pictures/cbmn-summer-2015-070.jpg);
+}
+
+.pictures20 {
+    background-image: url(../images/pictures/cbmn-summer-2015-072.jpg);
 }
 
 .pictures21 {
@@ -479,11 +479,11 @@ img {
 }
 
 .pictures23 {
-    background-image: url(../images/pictures/cbmn-summer-2015-072.jpg);
+    background-image: url(../images/pictures/cbmn-summer-2015-079.jpg);
 }
 
 .pictures24 {
-    background-image: url(../images/pictures/cbmn-summer-2015-062.jpg);
+    background-image: url(../images/pictures/cbmn-summer-2015-084.jpg);
 }
 
 .pictures25 {
@@ -491,44 +491,54 @@ img {
 }
 
 .pictures26 {
-    background-image: url(../images/pictures/cbmn-summer-2015-079.jpg);
-}
-
-.pictures27 {
     background-image: url(../images/pictures/cbmn-summer-2015-111.jpg);
 }
 
-.pictures28 {
+.pictures27 {
     background-image: url(../images/pictures/cbmn-summer-2015-126.jpg);
 }
 
-.pictures29 {
-    background-image: url(../images/pictures/cbmn-fall-2015-001.jpg);
+.pictures28 {
+    background-image: url(../images/pictures/cbmn-summer-2015-097.jpg);
 }
 
-.pictures30 {
+.pictures29 {
     background-image: url(../images/pictures/cbmn-fall-2015-002.jpg);
 }
 
-.pictures31 {
+.pictures30 {
     background-image: url(../images/pictures/cbmn-fall-2015-003.jpg);
 }
 
-.pictures32 {
+.pictures31 {
     background-image: url(../images/pictures/cbmn-fall-2015-004.jpg);
 }
 
-.pictures33 {
+.pictures32 {
     background-image: url(../images/pictures/cbmn-fall-2015-005.jpg);
 }
 
-.pictures34 {
+.pictures33 {
     background-image: url(../images/pictures/cbmn-fall-2015-006.jpg);
 }
 
-.pictures35 {
+.pictures34 {
     background-image: url(../images/pictures/cbmn-fall-2015-007.jpg);
 }
+
+.pictures35 {
+    background-image: url(../images/pictures/cbmn-fall-2015-001.jpg);
+}
+
+.pictures36 { background-image: url(../images/pictures/cbmn-fall-2016-103.jpg); }
+.pictures37 { background-image: url(../images/pictures/cbmn-fall-2016-101.jpg); }
+.pictures38 { background-image: url(../images/pictures/cbmn-fall-2016-104.jpg); }
+.pictures39 { background-image: url(../images/pictures/cbmn-fall-2016-107.jpg); }
+.pictures40 { background-image: url(../images/pictures/cbmn-fall-2016-108.jpg); }
+.pictures41 { background-image: url(../images/pictures/cbmn-fall-2016-112.jpg); }
+.pictures42 { background-image: url(../images/pictures/cbmn-fall-2016-113.jpg); }
+.pictures43 { background-image: url(../images/pictures/cbmn-fall-2016-116.jpg); }
+.pictures44 { background-image: url(../images/pictures/cbmn-fall-2016-110.jpg); }
 
 /* responsive heuristics */
 

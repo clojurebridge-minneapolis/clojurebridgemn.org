@@ -79,12 +79,29 @@
     :source :student}
    {:quote "Computer science to me is very creative - very expressive and that requires a lot of different experiences and viewpoints."
     :source :student}
-   {:quote " This is so cool I just don't want to stop [for lunch]!"
+   {:quote "This is so cool I just don't want to stop [for lunch]!"
     :source :student}
+   ;; 2016
+   {:quote "I'm mostly here because I know nothing about programming and I'm intimidated in by other avenues but this is a great and open environment."
+    :source :student}
+   {:quote "I'm a Track 2 student. I'm doing Clojure at UMN and I want to get more into it."
+    :source :student}
+   {:quote "I'm new to programming but I like it! I've been to different meetups and its very dense and specific to a framework. ClojureBridge is a better setting because its a longer time frame."
+    :source :student}
+   {:quote "Did Track 1 and I'm now a software engineering student! Coming back for Track 2!"
+    :source :student}
+   {:quote "I want to create a safe and empowering environment."
+    :source :mentor}
+   {:quote "Fun to share Clojure and we need a different way of thinking in the
+  industry."
+    :source :mentor}
+   {:quote "Clojure is not a language, it's a community."
+    :source :mentor}
    ])
 
 (defonce quotes-total (count quotes))
 
+;; BUG: the order here MUST match what's in CSS :(
 (defonce pictures
   ["clojurebridge-1.jpg"
    "clojurebridge-2.jpg"
@@ -98,7 +115,7 @@
    "clojurebridge-10.jpg"
    "clojurebridge-11.jpg"
    "clojurebridge-12.jpg"
-   "clojurebridge-13.jpg"
+   "clojurebridge-13.jpg" ;; group photo
    "cbmn-summer-2015-017.jpg"
    "cbmn-summer-2015-042.jpg"
    "cbmn-summer-2015-043.jpg"
@@ -112,16 +129,25 @@
    "cbmn-summer-2015-079.jpg"
    "cbmn-summer-2015-084.jpg"
    "cbmn-summer-2015-088.jpg"
-   "cbmn-summer-2015-097.jpg"
    "cbmn-summer-2015-111.jpg"
    "cbmn-summer-2015-126.jpg"
-   "cbmn-fall-2015-001.jpg"
+   "cbmn-summer-2015-097.jpg" ;; group photo
    "cbmn-fall-2015-002.jpg"
    "cbmn-fall-2015-003.jpg"
    "cbmn-fall-2015-004.jpg"
    "cbmn-fall-2015-005.jpg"
    "cbmn-fall-2015-006.jpg"
    "cbmn-fall-2015-007.jpg"
+   "cbmn-fall-2015-001.jpg" ;; group photo
+   "cbmn-fall-2016-103.jpg"
+   "cbmn-fall-2016-101.jpg"
+   "cbmn-fall-2016-104.jpg"
+   "cbmn-fall-2016-107.jpg"
+   "cbmn-fall-2016-108.jpg"
+   "cbmn-fall-2016-112.jpg"
+   "cbmn-fall-2016-113.jpg"
+   "cbmn-fall-2016-116.jpg"
+   "cbmn-fall-2016-110.jpg" ;; group photo
    ])
 
 (defonce pictures-total (count pictures))

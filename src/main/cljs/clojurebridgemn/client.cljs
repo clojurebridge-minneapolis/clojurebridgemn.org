@@ -216,6 +216,7 @@
         page (name pg)
         current-p (get-auto :pictures)
         max-p (get-in @app-state [:elements :pictures :n])
+        _ (println "MAX-P" max-p)
         current-auto-pix (get-auto-pix)
         auto-pix (if (nil? auto-pix) current-auto-pix auto-pix)
         p (cond
@@ -225,6 +226,7 @@
             (string? picture) (int (last (gstring/splitLimit picture "-" 1)))
             :else current-p)
         p (max 0 (min p (dec max-p)))
+        _ (println "P" p "CURRENT-P" current-p)
         picture (str "picture-" p)
         current-q (get-auto :quotes)
         max-q (get-in @app-state [:elements :quotes :n])
@@ -586,16 +588,12 @@
     [:div.small.center "Free, beginner-friendly Clojure programming workshops for women"
      [:br]
      [:br]
-     ;; [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
-     ;;  " for our Fall/Winter workshop November 13-14!"
-     ;; "Save the date! Our next ClojureBridgeMN workshop is scheduled for 11/13-14"
-     ;; "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for November 4-5)"
-     "Our next ClojureBridgeMN workshop is coming soon on Nov 4 & 5 !!!"
-     [:br]
-     [:br]
-     "Sign up NOW on "
-     [:a {:href "http://clojurebridgemn-2016.eventbrite.com"} "Eventbrite"]
-     " !"
+     "Stay tuned for our next ClojureBridgeMN workshop in 2017"
+     ;; [:br]
+     ;; [:br]
+     ;; "Sign up NOW on "
+     ;; [:a {:href "http://clojurebridgemn-2016.eventbrite.com"} "Eventbrite"]
+     ;; " !"
      ]
     }
    :logos
@@ -842,17 +840,11 @@
    {:debug
     [:div
      [:br]
-     ;; [:i [:a {:href "https://www.eventbrite.com/e/clojurebridge-mn-fallwinter-2015-tickets-19159690149"} "Sign up now"]]
-     ;;  " for our Fall/Winter workshop November 13-14!"
-     "Our next ClojureBridgeMN workshop is scheduled for 11/4-5"
-     [:br]
-     "Sign up NOW on "
-     [:a {:href "http://clojurebridgemn-2016.eventbrite.com"} "Eventbrite"]
-     " !"
-     ;; "Stay tuned for more information about our upcoming workshop at "
-     ;; [:a {:href "http://vidku.com"} "Vidku"]
-     ;; " on September 11-12!"
-     ;; "Stay tuned for our next ClojureBridgeMN workshop (tentatively scheduled for November 4-5)"
+     "Stay tuned for our next ClojureBridgeMN workshop in 2017"
+     ;; [:br]
+     ;; "Sign up NOW on "
+     ;; [:a {:href "http://clojurebridgemn-2016.eventbrite.com"} "Eventbrite"]
+     ;; " !"
      [:br]
      [:br]
      "Want to connect with the local Clojure community?"
@@ -860,7 +852,7 @@
      [:br]
      "Join us for our next "
      [:a {:href "http://www.meetup.com/clojuremn/"} "clojure.mn"]
-     " meeting on November 9th!"
+     " meeting on December 14th!"
      [:br]
      [:br]
      ]
