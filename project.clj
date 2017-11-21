@@ -48,6 +48,8 @@
              ]
             [lein-environ "1.1.0"]]
 
+  :jvm-opts ["--add-modules" "java.xml.bind"]
+
   :hooks [leiningen.cljsbuild]
 
   :figwheel {:css-dirs ["resources/public/css"]

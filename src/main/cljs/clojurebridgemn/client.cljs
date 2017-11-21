@@ -811,7 +811,9 @@
    {:debug
     [:div "Our ClojureBridge efforts are part of the national "
      [:a {:href "http://clojurebridge.org"} "ClojureBridge"]
-     " organization which benefits from 501(c)3 non-profit status (via affiliation with School Factory)"
+     " organization which benefits from 501(c)3 non-profit status (via affiliation with "
+     [:a {:href "https://bridgefoundry.org"} "Bridge Foundry"]
+     ").  All donations are provided as unrestricted funds."
      [:br] [:br]
      "To learn more about corporate sponsorship opportunities please send e-mail to info@ClojureBridgeMN.org. You can also donate "
      [:i "right now"] " via PayPay here:"
@@ -823,7 +825,7 @@
                :value "_s-xclick"}]
       [:input {:type "hidden"
                :name "hosted_button_id"
-               :value "HW3JXRX3FADY8"}]
+               :value "5HC5ZQ8RPS8AA"}]
       [:input.paypal {:type "image"
                       :src "https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
                       :border "0"
