@@ -48,7 +48,9 @@
              ]
             [lein-environ "1.1.0"]]
 
-  :jvm-opts ["--add-modules" "java.xml.bind"]
+  ;; do NOT modify JVM options here.. instead set the JVM_OPTS env var
+  ;; FFI https://github.com/technomancy/leiningen/blob/1a366b2c01054ffcc9a32b104818bc7d1f0024c0/doc/TUTORIAL.md#setting-jvm-options
+  ;; :jvm-opts ["--add-modules" "java.xml.bind"]
 
   :hooks [leiningen.cljsbuild]
 
